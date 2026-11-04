@@ -1,6 +1,8 @@
 name: pipeline
 
 on:
+  push:
+    branches: [main]
   pull_request:
     types: [closed]
     paths:
@@ -21,7 +23,10 @@ concurrency:
 
 jobs:
   pipeline:
-    if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
       repo-slug: "${{ github.event.repository.name }}"
