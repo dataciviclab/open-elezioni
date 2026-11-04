@@ -1,0 +1,34 @@
+-- Clean: elezioni provinciali 2004-2011, per collegio/comune.
+-- Join al bridge SUT su comune normalizzato (best effort: alcuni COMUNE
+-- della fonte sono nomi di collegio, es. "ACQUI TERME I").
+WITH base AS (
+    SELECT
+        TRY_CAST(data_elezione AS DATE) AS data_elezione,
+        CAST(regione AS VARCHAR) AS regione,
+        CAST(provincia AS VARCHAR) AS provincia,
+        CAST(collegio AS VARCHAR) AS collegio,
+        CAST(comune AS VARCHAR) AS comune,
+        TRY_CAST(turno AS BIGINT) AS turno,
+        CAST(candidato AS VARCHAR) AS candidato,
+        CAST(lista AS VARCHAR) AS lista,
+        TRY_CAST(voti_candidato AS BIGINT) AS voti_candidato,
+        TRY_CAST(voti_lista AS BIGINT) AS voti_lista,
+        TRY_CAST(elettori AS BIGINT) AS elettori,
+        TRY_CAST(elettori_maschi AS BIGINT) AS elettori_maschi,
+        TRY_CAST(votanti AS BIGINT) AS votanti,
+        TRY_CAST(votanti_maschi AS BIGINT) AS votanti_maschi,
+        TRY_CAST(schede_bianche AS BIGINT) AS schede_bianche
+    FROM raw_input
+),
+sut AS (
+    SELECT codice_istat, codice_belfiore, codice_elettorale, comune_norm
+    FROM read_parquet('{support.sut_comuni.mart}')
+)
+SELECT
+    base.*,
+    sut.codice_istat,
+    sut.codice_belfiore,
+    sut.codice_elettorale,
+    sut.codice_istat IS NOT NULL AS match_sut
+FROM base
+LEFT JOIN sut ON UPPER(TRIM(base.comune)) = sut.comune_norm
