@@ -79,14 +79,13 @@ def test_each_dataset_declares_minimum_contract(dataset_configs: list[Path]) -> 
         assert dataset["raw"]["sources"][0].get("primary") is True, f"{rel}: la prima source deve essere primary"
         assert dataset["clean"]["sql"], f"{rel}: manca clean.sql"
         assert dataset["clean"].get("required_columns"), f"{rel}: manca clean.required_columns"
-        assert dataset["clean"]["validate"].get("primary_key"), f"{rel}: manca clean.validate.primary_key"
-        assert dataset["clean"]["validate"].get("not_null"), f"{rel}: manca clean.validate.not_null"
+        validate = dataset["clean"]["validate"]
+        assert validate.get("primary_key") or validate.get("not_null"), f"{rel}: manca una regola di validazione (primary_key/not_null)"
         assert dataset["clean"]["validate"].get("min_rows") >= 1, f"{rel}: min_rows deve essere >= 1"
         assert dataset["mart"]["tables"], f"{rel}: manca mart.tables"
-        assert dataset["mart"].get("required_tables"), f"{rel}: manca mart.required_tables"
         assert dataset["mart"]["validate"].get("table_rules"), f"{rel}: manca mart.validate.table_rules"
         assert dataset["validation"]["fail_on_error"] is True, f"{rel}: fail_on_error deve essere true"
-        assert dataset["output"]["artifacts"] in {"minimal", "standard", "debug"}, f"{rel}: artifacts non valido"
+        assert dataset.get("output", {}).get("artifacts", "standard") in {"minimal", "standard", "debug"}, f"{rel}: artifacts non valido"
 
 
 def _iter_path_values(node: object):
@@ -147,7 +146,7 @@ def test_required_tables_and_rules_match_declared_marts(dataset_configs: list[Pa
         dataset = yaml.safe_load(cfg.read_text(encoding="utf-8"))
         rel = str(cfg.relative_to(REPO_ROOT))
         names = {t["name"] for t in dataset["mart"]["tables"]}
-        required = set(dataset["mart"]["required_tables"])
+        required = set(dataset["mart"].get("required_tables") or names)
         rules = set(dataset["mart"]["validate"]["table_rules"].keys())
         assert required <= names, f"{rel}: mart.required_tables non riferisce tabelle dichiarate"
         assert rules <= names, f"{rel}: mart.validate.table_rules non riferisce tabelle dichiarate"

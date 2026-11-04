@@ -34,6 +34,7 @@ clean:
     - comune_norm
     - provincia_norm
     - regione_norm
+    - ambiguous
   read:
     source: auto
     mode: latest
@@ -55,7 +56,7 @@ mart:
   validate:
     table_rules:
       mart_comuni:
-        primary_key: [codice_istat]
+        primary_key: [comune_norm]
         min_rows: 7000
 
 validation:

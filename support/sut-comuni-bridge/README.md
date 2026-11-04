@@ -22,7 +22,7 @@ e produce una riga per comune con chiavi normalizzate.
 | `comune`, `sigla`, `regione`, `provincia` | valori come da fonte |
 | `codice_istat` | 6 cifre (da `="028001"`) |
 | `codice_belfiore` | catastale |
-| `codice_elettorale` | 10 cifre = `1` + `codice_dait_completo` (9 cifre) |
+| `codice_elettorale` | 10 cifre: prefisso variabile + `codice_dait_completo` (9 cifre) |
 | `comune_norm`, `provincia_norm`, `regione_norm` | `UPPER(TRIM(...))` per i join |
 
 ## Join tipico

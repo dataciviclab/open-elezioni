@@ -76,3 +76,17 @@ pre-2018.
 Gli schemi di `elezioni-*` e `dait-amministratori-*` sono documentati nei
 rispettivi README/notes in `open-politica` e verranno portati qui con la
 migrazione.
+
+## Campi aggiunti dai support SUT
+
+I 5 dataset `elezioni-*` e `dait-amministratori-locali` espongono in clean:
+
+| Colonna | Note |
+| --- | --- |
+| `codice_istat` | NULL se il comune storico non è nello snapshot SUT |
+| `codice_belfiore` | codice catastale |
+| `codice_elettorale` | codice DAIT a 10 cifre |
+| `match_sut` | `true` se il comune è stato agganciato al SUT |
+
+`match_sut = false` non è un errore: sono i comuni soppressi/fusi che lo
+snapshot corrente non contiene più.

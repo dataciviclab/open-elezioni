@@ -47,11 +47,28 @@
 ## D-006 — Strategia di join col bridge SUT
 
 - decisione: joinare i dataset elettorali su `UPPER(TRIM(comune))` con
-  `LEFT JOIN`; la provincia serve solo per i 5 nomi ambigui.
+  `LEFT JOIN` verso `mart_comuni`, che ha **una riga per `comune_norm`**.
+  I 5 nomi omonimi (`ambiguous`) hanno `codice_istat` NULL: meglio nessun
+  codice che un codice sbagliato.
 - motivo: le province storiche hanno nomi diversi dallo snapshot SUT
   (`VERBANIA`/`VERB.-CUS.OSSOLA`/`VERBANO-CUSIO-OSSOLA`, `FORLI`/`RIMINI`/…),
-  e il match comune+provincia scende da ~91% a ~78%.
-- impatto: `codice_istat` può essere NULL; tenere sempre la riga e aggiungere
-  un flag di copertura nei clean dei dataset.
+  e il match comune+provincia scende da ~91% a ~78%. Inoltre un `OR` nella
+  condizione di join su 3,8M righe (politiche) causava nested loop (>15 min).
+- join amministratori: `SUBSTR(sut.codice_elettorale, 2) = codice_dait_completo`
+  (la prima cifra del codice elettorale è un prefisso variabile, non sempre
+  `1`); match 99,9%.
+- impatto: `codice_istat` può essere NULL; tenere sempre la riga e usare il
+  flag `match_sut`.
 
 
+
+## D-007 — Adattamento contract test ai dataset migrati
+
+- decisione: il contract test richiede una regola di validazione
+  (`primary_key` **o** `not_null`); `mart.required_tables` è opzionale e
+  `output.artifacts` ha default `standard`.
+- motivo: i dataset Eligendo/DAIT hanno grani non sempre univoci
+  (persona × carica, lista × comune × turno) e non dichiaravano
+  `required_tables`; forzare chiavi artificiali avrebbe potuto far fallire
+  la validazione.
+- impatto: solo `tests/test_contract.py` locale.

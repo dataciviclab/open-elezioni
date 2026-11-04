@@ -5,6 +5,919 @@
   "updated_at": "2026-11-04",
   "datasets": [
     {
+      "slug": "dait_amministratori_locali",
+      "name": "Dait Amministratori Locali",
+      "description": "",
+      "source": "",
+      "source_id": "dait",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "tags": [
+        "politica",
+        "dait",
+        "amministratori",
+        "locali"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "livello_ente",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "codice_regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "codice_provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "codice_comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_dait_completo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "denominazione_ente",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sigla_provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "popolazione_censita",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "cognome",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_nascita",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "luogo_nascita",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "descrizione_carica",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "incarico",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_entrata_in_carica",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_elezione_max_carica",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "lista_appartenenza",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "titolo_studio",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "professione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/dait_amministratori_locali/2026/dait_amministratori_locali_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "dait_amministratori_locali__mart_profilo_carica",
+        "dait_amministratori_locali__mart_profilo_demografico",
+        "dait_amministratori_locali__mart_territorio",
+        "dait_amministratori_locali__mart_profilo_livello"
+      ]
+    },
+    {
+      "slug": "elezioni_comunali",
+      "name": "Elezioni Comunali",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 1964,
+        "end": 2024
+      },
+      "tags": [
+        "politica",
+        "elezioni"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "turno",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "candidato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_candidato",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "voti_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "seggi_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_bianche",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/elezioni_comunali/*/elezioni_comunali_*_clean.parquet",
+        "multi_file": true
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_comunali__mart_voti_lista_comune"
+      ]
+    },
+    {
+      "slug": "elezioni_europee",
+      "name": "Elezioni Europee",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "politica",
+        "elezioni",
+        "europee"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "circoscrizione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_bianche",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/elezioni_europee/2024/elezioni_europee_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_europee__mart_voti_lista_comune"
+      ]
+    },
+    {
+      "slug": "elezioni_politiche",
+      "name": "Elezioni Politiche",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 1948,
+        "end": 2022
+      },
+      "tags": [
+        "politica",
+        "elezioni",
+        "politiche"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "camera_senato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "circoscrizione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "collegio_plurinominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "collegio_uninominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "elettori_totali",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti_totali",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_biache",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "descr_lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cognome",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "luogo_nascita",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_nascita",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_candidato",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/elezioni_politiche/2022/elezioni_politiche_2022_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_politiche__mart_voti_elezioni_politiche",
+        "elezioni_politiche__mart_voti_per_lista",
+        "elezioni_politiche__mart_candidati",
+        "elezioni_politiche__mart_trend"
+      ]
+    },
+    {
+      "slug": "elezioni_referendum",
+      "name": "Elezioni Referendum",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 2022,
+        "end": 2022
+      },
+      "tags": [
+        "politica",
+        "elezioni",
+        "referendum"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "elettori_uomini",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti_uomini",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "voti_si",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "voti_no",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_nulle",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_bianche",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_contestate",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "num_quesito",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/elezioni_referendum/2022/elezioni_referendum_2022_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_referendum__mart_voti_quesito_comune",
+        "elezioni_referendum__mart_trend"
+      ]
+    },
+    {
+      "slug": "elezioni_regionali",
+      "name": "Elezioni Regionali",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "politica",
+        "elezioni"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "circoscrizione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "elettori",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_bianche",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "candidato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_candidato",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/elezioni_regionali/2024/elezioni_regionali_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_regionali__mart_voti_lista_comune"
+      ]
+    },
+    {
       "slug": "sut_codici_comuni",
       "name": "Sut Codici Comuni",
       "description": "Codici ISTAT, elettorali e Belfiore dei comuni italiani (SUT/DAIT).",
@@ -305,6 +1218,12 @@
           "type": "VARCHAR",
           "role": "dimension",
           "description": ""
+        },
+        {
+          "name": "ambiguous",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
         }
       ],
       "location": {
@@ -319,6 +1238,156 @@
     }
   ],
   "marts": [
+    {
+      "slug": "dait_amministratori_locali__mart_profilo_carica",
+      "dataset": "dait_amministratori_locali",
+      "table": "mart_profilo_carica",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_locali/2026/mart_profilo_carica.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "dait_amministratori_locali__mart_profilo_demografico",
+      "dataset": "dait_amministratori_locali",
+      "table": "mart_profilo_demografico",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_locali/2026/mart_profilo_demografico.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "dait_amministratori_locali__mart_profilo_livello",
+      "dataset": "dait_amministratori_locali",
+      "table": "mart_profilo_livello",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_locali/2026/mart_profilo_livello.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "dait_amministratori_locali__mart_territorio",
+      "dataset": "dait_amministratori_locali",
+      "table": "mart_territorio",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_locali/2026/mart_territorio.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "dait_amministratori_storico__mart_genere_anno",
+      "dataset": "dait_amministratori_storico",
+      "table": "mart_genere_anno",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_storico/2025/mart_genere_anno.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "dait_amministratori_storico__mart_profilo_anno",
+      "dataset": "dait_amministratori_storico",
+      "table": "mart_profilo_anno",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/dait_amministratori_storico/2025/mart_profilo_anno.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "elezioni_comunali__mart_voti_lista_comune",
+      "dataset": "elezioni_comunali",
+      "table": "mart_voti_lista_comune",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_comunali/*/mart_voti_lista_comune.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "elezioni_europee__mart_voti_lista_comune",
+      "dataset": "elezioni_europee",
+      "table": "mart_voti_lista_comune",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_europee/*/mart_voti_lista_comune.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "elezioni_politiche__mart_candidati",
+      "dataset": "elezioni_politiche",
+      "table": "mart_candidati",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_politiche/2022/mart_candidati.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "elezioni_politiche__mart_trend",
+      "dataset": "elezioni_politiche",
+      "table": "mart_trend",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_politiche/2022/mart_trend.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "elezioni_politiche__mart_voti_elezioni_politiche",
+      "dataset": "elezioni_politiche",
+      "table": "mart_voti_elezioni_politiche",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_politiche/2022/mart_voti_elezioni_politiche.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "elezioni_politiche__mart_voti_per_lista",
+      "dataset": "elezioni_politiche",
+      "table": "mart_voti_per_lista",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_politiche/2022/mart_voti_per_lista.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "elezioni_referendum__mart_trend",
+      "dataset": "elezioni_referendum",
+      "table": "mart_trend",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_referendum/*/mart_trend.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "elezioni_referendum__mart_voti_quesito_comune",
+      "dataset": "elezioni_referendum",
+      "table": "mart_voti_quesito_comune",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_referendum/*/mart_voti_quesito_comune.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "elezioni_regionali__mart_voti_lista_comune",
+      "dataset": "elezioni_regionali",
+      "table": "mart_voti_lista_comune",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/elezioni_regionali/*/mart_voti_lista_comune.parquet",
+        "multi_file": true
+      }
+    },
     {
       "slug": "sut_codici_comuni__mart_comuni",
       "dataset": "sut_codici_comuni",
@@ -361,6 +1430,188 @@
     }
   ],
   "signals": [
+    {
+      "id": "dait_amministratori_locali",
+      "source_id": "dait",
+      "status": "ok",
+      "label": "dait_amministratori_locali",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T113152Z_b447359e",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "mart": 100
+        },
+        "output_rows": {
+          "mart": 194
+        },
+        "output_bytes": {
+          "mart": 7763
+        },
+        "started_at": "2026-11-04T11:31:52.285086+00:00",
+        "finished_at": "2026-11-04T11:31:52.708870+00:00",
+        "duration_seconds": 0.424
+      }
+    },
+    {
+      "id": "dait_amministratori_storico",
+      "source_id": "dait",
+      "status": "ok",
+      "label": "dait_amministratori_storico",
+      "detail": "anno 2025 — mart: si",
+      "action": ""
+    },
+    {
+      "id": "elezioni_comunali",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_comunali",
+      "detail": "anni 1964-2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T111052Z_7c9fcea3",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 10343,
+          "clean": 10343,
+          "mart": 10343
+        },
+        "output_bytes": {
+          "raw": 1738573,
+          "clean": 327631,
+          "mart": 305780
+        },
+        "started_at": "2026-11-04T11:10:52.555697+00:00",
+        "finished_at": "2026-11-04T11:11:01.060382+00:00",
+        "duration_seconds": 8.505
+      }
+    },
+    {
+      "id": "elezioni_europee",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_europee",
+      "detail": "anni 1979-2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T111118Z_db354299",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 93984,
+          "clean": 93984,
+          "mart": 93984
+        },
+        "output_bytes": {
+          "raw": 12648879,
+          "clean": 528354,
+          "mart": 773539
+        },
+        "started_at": "2026-11-04T11:11:18.799586+00:00",
+        "finished_at": "2026-11-04T11:12:15.065955+00:00",
+        "duration_seconds": 56.266
+      }
+    },
+    {
+      "id": "elezioni_politiche",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_politiche",
+      "detail": "anno 2022 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T113027Z_bc08fc87",
+        "year": 2022,
+        "status": "SUCCESS",
+        "quality_score": {
+          "mart": 100
+        },
+        "output_rows": {
+          "mart": 3650236
+        },
+        "output_bytes": {
+          "mart": 32886266
+        },
+        "started_at": "2026-11-04T11:30:27.123214+00:00",
+        "finished_at": "2026-11-04T11:30:33.114461+00:00",
+        "duration_seconds": 5.991
+      }
+    },
+    {
+      "id": "elezioni_referendum",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_referendum",
+      "detail": "anni 1974-2022 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T110951Z_72133d3b",
+        "year": 2022,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 39515,
+          "clean": 39515,
+          "mart": 39535
+        },
+        "output_bytes": {
+          "raw": 3140054,
+          "clean": 940915,
+          "mart": 648395
+        },
+        "started_at": "2026-11-04T11:09:51.608593+00:00",
+        "finished_at": "2026-11-04T11:10:16.605281+00:00",
+        "duration_seconds": 24.997
+      }
+    },
+    {
+      "id": "elezioni_regionali",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_regionali",
+      "detail": "anni 1970-2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T111107Z_9885886c",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 15266,
+          "clean": 15266,
+          "mart": 15266
+        },
+        "output_bytes": {
+          "raw": 1557369,
+          "clean": 88916,
+          "mart": 147301
+        },
+        "started_at": "2026-11-04T11:11:07.564361+00:00",
+        "finished_at": "2026-11-04T11:11:17.790222+00:00",
+        "duration_seconds": 10.226
+      }
+    },
     {
       "id": "sut_codici_comuni",
       "source_id": "dait_sut",
@@ -462,7 +1713,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T105505Z_31b98950",
+        "run_id": "20261104T112958Z_6918d113",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -473,16 +1724,16 @@
         "output_rows": {
           "raw": 7894,
           "clean": 7894,
-          "mart": 7894
+          "mart": 7889
         },
         "output_bytes": {
           "raw": 451016,
-          "clean": 190548,
-          "mart": 190548
+          "clean": 207829,
+          "mart": 157787
         },
-        "started_at": "2026-11-04T10:55:05.722423+00:00",
-        "finished_at": "2026-11-04T10:55:08.716980+00:00",
-        "duration_seconds": 2.995
+        "started_at": "2026-11-04T11:29:58.432078+00:00",
+        "finished_at": "2026-11-04T11:30:01.984955+00:00",
+        "duration_seconds": 3.553
       }
     }
   ],
@@ -493,6 +1744,114 @@
         "entity": "Comune",
         "label": "Comune (ISTAT)",
         "datasets": [
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "codice_comune",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "elezioni_comunali",
+            "name": "Elezioni Comunali",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_comunali",
+            "name": "Elezioni Comunali",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_comunali",
+            "name": "Elezioni Comunali",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "elezioni_europee",
+            "name": "Elezioni Europee",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_europee",
+            "name": "Elezioni Europee",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_europee",
+            "name": "Elezioni Europee",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "elezioni_politiche",
+            "name": "Elezioni Politiche",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_politiche",
+            "name": "Elezioni Politiche",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_politiche",
+            "name": "Elezioni Politiche",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "elezioni_referendum",
+            "name": "Elezioni Referendum",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_referendum",
+            "name": "Elezioni Referendum",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_referendum",
+            "name": "Elezioni Referendum",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "elezioni_regionali",
+            "name": "Elezioni Regionali",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_regionali",
+            "name": "Elezioni Regionali",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_regionali",
+            "name": "Elezioni Regionali",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
           {
             "slug": "sut_codici_comuni",
             "name": "Sut Codici Comuni",
@@ -543,15 +1902,57 @@
           }
         ],
         "types": {
-          "municipality_name": 4,
-          "municipality_code": 2,
-          "cadastral_code": 2
+          "municipality_code": 9,
+          "cadastral_code": 8,
+          "municipality_name": 9
         }
       },
       "Provincia": {
         "entity": "Provincia",
         "label": "Provincia",
         "datasets": [
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "codice_provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "sigla_provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "elezioni_comunali",
+            "name": "Elezioni Comunali",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "elezioni_europee",
+            "name": "Elezioni Europee",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "elezioni_politiche",
+            "name": "Elezioni Politiche",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "elezioni_referendum",
+            "name": "Elezioni Referendum",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "elezioni_regionali",
+            "name": "Elezioni Regionali",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
           {
             "slug": "sut_collegi_camera_comuni",
             "name": "Sut Collegi Camera Comuni",
@@ -572,13 +1973,43 @@
           }
         ],
         "types": {
-          "province_code": 3
+          "province_code": 10
         }
       },
       "Regione": {
         "entity": "Regione",
         "label": "Regione",
         "datasets": [
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "codice_regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "elezioni_comunali",
+            "name": "Elezioni Comunali",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "elezioni_europee",
+            "name": "Elezioni Europee",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "elezioni_referendum",
+            "name": "Elezioni Referendum",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "elezioni_regionali",
+            "name": "Elezioni Regionali",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
           {
             "slug": "sut_comuni_bridge",
             "name": "Sut Comuni Bridge",
@@ -587,7 +2018,22 @@
           }
         ],
         "types": {
-          "region_code": 1
+          "region_code": 6
+        }
+      },
+      "Tempo": {
+        "entity": "Tempo",
+        "label": "Tempo / data",
+        "datasets": [
+          {
+            "slug": "dait_amministratori_locali",
+            "name": "Dait Amministratori Locali",
+            "column": "anno",
+            "semantic_type": "year"
+          }
+        ],
+        "types": {
+          "year": 1
         }
       }
     },
