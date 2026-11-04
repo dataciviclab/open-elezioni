@@ -3,7 +3,7 @@ WITH base AS (
     -- Usa macro standard del toolkit: cast_bigint, normalize_string
     
     SELECT
-        CAST(data_elezione AS DATE) AS data_elezione,
+        TRY_CAST(data_elezione AS DATE) AS data_elezione,
         normalize_string(regione) AS regione,
         normalize_string(provincia) AS provincia,
         normalize_string(comune) AS comune,

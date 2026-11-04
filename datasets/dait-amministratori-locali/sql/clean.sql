@@ -19,26 +19,26 @@ WITH base AS (
     -- ISTAT o BDAP.
     
     SELECT
-        {year}::INTEGER                                       AS anno,
+        cast_int({year})                                       AS anno,
         livello_ente                                          AS livello_ente,
-        NULLIF(codice_regione, '')                            AS codice_regione,
-        NULLIF(codice_provincia, '')                          AS codice_provincia,
-        NULLIF(codice_comune, '')                             AS codice_comune,
+        normalize_string(codice_regione)                            AS codice_regione,
+        normalize_string(codice_provincia)                          AS codice_provincia,
+        normalize_string(codice_comune)                             AS codice_comune,
         -- codice_dait_completo ha senso solo a livello comune (9 cifre)
         CASE WHEN livello_ente = 'comune'
-             THEN NULLIF(codice_regione || codice_provincia || codice_comune, '')
+             THEN normalize_string(codice_regione || codice_provincia || codice_comune)
         END                                                   AS codice_dait_completo,
         -- denominazione unificata: comune > provincia > regione
         COALESCE(
-            NULLIF(denominazione_comune, ''),
-            NULLIF(denominazione_provincia, ''),
-            NULLIF(denominazione_regione, '')
+            normalize_string(denominazione_comune),
+            normalize_string(denominazione_provincia),
+            normalize_string(denominazione_regione)
         )                                                     AS denominazione_ente,
-        NULLIF(sigla_provincia, '')                           AS sigla_provincia,
+        normalize_string(sigla_provincia)                           AS sigla_provincia,
         -- popolazione censita disponibile solo a livello comune
         -- (auto-detect la tipizza BIGINT; vuoti → NULL nativo)
         CASE WHEN livello_ente = 'comune'
-             THEN popolazione_censita_alla_data_elezione::INTEGER
+             THEN cast_int(popolazione_censita_alla_data_elezione)
         END                                                   AS popolazione_censita,
         cognome                                               AS cognome,
         nome                                                  AS nome,
@@ -46,14 +46,14 @@ WITH base AS (
         data_nascita                                          AS data_nascita,
         luogo_nascita                                         AS luogo_nascita,
         descrizione_carica                                    AS descrizione_carica,
-        NULLIF(incarico, '')                                  AS incarico,
+        normalize_string(incarico)                                  AS incarico,
         data_elezione                                         AS data_elezione,
         data_entrata_in_carica                                AS data_entrata_in_carica,
         -- solo livello provincia
         data_elezione_max_carica                              AS data_elezione_max_carica,
-        NULLIF("lista_appartenenza/collegamento", '')         AS lista_appartenenza,
-        NULLIF(titolo_studio, '')                             AS titolo_studio,
-        NULLIF(professione, '')                               AS professione
+        normalize_string("lista_appartenenza/collegamento")         AS lista_appartenenza,
+        normalize_string(titolo_studio)                             AS titolo_studio,
+        normalize_string(professione)                               AS professione
     FROM raw_input
 ),
 sut AS (
