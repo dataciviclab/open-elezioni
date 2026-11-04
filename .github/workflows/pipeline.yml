@@ -8,7 +8,12 @@ on:
       - "support/**"
   schedule:
     - cron: "0 6 1 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: "Slug o path del dataset.yml (vuoto = tutti)"
+        required: false
+        default: ""
 
 concurrency:
   group: pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
@@ -20,7 +25,7 @@ jobs:
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
       repo-slug: "${{ github.event.repository.name }}"
-      run-command: "make run-all"
+      run-command: ${{ inputs.dataset == '' && 'make run-all' || format('toolkit run --config {0}', inputs.dataset) }}
     permissions:
       contents: write
       pull-requests: write
