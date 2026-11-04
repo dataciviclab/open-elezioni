@@ -1,0 +1,54 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "sut_codici_comuni"
+  source_id: "dait_sut"
+  tags: [support, territorio, comuni, codici, istat]
+  category: support
+  description: "Codici ISTAT, elettorali e Belfiore dei comuni italiani (SUT/DAIT)."
+  years: [2026]
+  time_coverage: {start_year: 2026, end_year: 2026}
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "sut_codici_comuni_csv"
+      type: "http_file"
+      args:
+        url: "https://dait.interno.gov.it/territorio-e-autonomie-locali/indice-sut/open-data/elenco-codici-comuni-csv.php"
+        filename: "sut_codici_comuni.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [nr, comune, sigla, codice_elettorale, codice_istat, codice_belfiore]
+  read:
+    source: auto
+    mode: latest
+    delim: ";"
+    encoding: "utf-8"
+    header: true
+    all_varchar: true
+  validate:
+    primary_key: [codice_istat]
+    not_null: [comune, sigla, codice_istat, codice_belfiore]
+    min_rows: 7000
+
+mart:
+  tables:
+    - name: "mart_comuni"
+      sql: "sql/mart_comuni.sql"
+  required_tables:
+    - "mart_comuni"
+  validate:
+    table_rules:
+      mart_comuni:
+        primary_key: [codice_istat]
+        min_rows: 7000
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: minimal
