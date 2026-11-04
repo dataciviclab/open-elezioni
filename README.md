@@ -1,65 +1,83 @@
-# open-elezioni — DataCivicLab
+# open-elezioni — Il voto e gli eletti, comune per comune
 
-Dati elettorali e amministratori locali italiani, dalle fonti del Ministero
-dell'Interno (DAIT):
+[![check](https://github.com/dataciviclab/open-elezioni/actions/workflows/check.yml/badge.svg)](https://github.com/dataciviclab/open-elezioni/actions/workflows/check.yml)
 
-- **Eligendo** — risultati elettorali dal 1946 (Camera, Senato, Europee,
-  Regionali, Comunali, Referendum)
-- **Anagrafe degli amministratori** — eletti locali e regionali (1986-oggi)
-- **SUT** — anagrafica e codici territoriali (ISTAT, elettorali, Belfiore)
+**Come vota l'Italia, territorio per territorio? E chi viene eletto?**
 
-- **Stato:** alpha (scaffold)
-- **Copertura:** elezioni 1964-2024, amministratori 1986-2025, territorio Italia
-- **Unità di analisi:** comune / lista / candidato (elezioni); ente × carica (amministratori)
+open-elezioni raccoglie i dati ufficiali del Ministero dell'Interno (DAIT):
+risultati elettorali **Eligendo** dal 1948 e **Anagrafe degli amministratori**
+locali. Li puliamo, li colleghiamo ai codici ISTAT e li pubblichiamo come
+parquet interrogabili.
 
-## La domanda civica
+## Cosa contiene
 
-Come votano gli italiani, territorio per territorio, e chi viene eletto?
-Il repo tiene insieme il **voto** (Eligendo) e gli **eletti** (amministratori),
-con i **codici territoriali** (SUT) come chiave di join.
+| Dataset | Cosa contiene | Periodo | Righe |
+|---|---|---|---:|
+| `elezioni_politiche` | Camera + Senato per comune | 1948-2022 (19 tornate) | ~3,78M |
+| `elezioni_europee` | Europee per comune | 1979-2024 (10 tornate) | ~1,2M |
+| `elezioni_regionali` | Regionali per comune | 1970-2024 (28 tornate) | ~962k |
+| `elezioni_comunali` | Comunali per comune, lista e candidato | 1964-2024 (160 tornate) | ~323k |
+| `elezioni_referendum` | Referendum per comune e quesito | 1974-2022 (23 tornate) | ~198k |
+| `dait_amministratori_locali` | amministratori in carica | 2026 | 127.805 |
+| `dait_amministratori_storico` | amministratori al 31/12 | 1986-2025 | 6.075.430 |
 
-## Dataset
+**Copertura**: ~7.900 comuni, 20 regioni, 98 province. I dataset elettorali
+espongono `codice_istat`, `codice_belfiore`, `codice_elettorale` e `match_sut`
+per collegare voto, eletti e territorio.
 
-I dataset elettorali sono in **migrazione da `open-politica`** e verranno
-spostati qui con la relativa pipeline.
+### Support
 
-| Slug | Cosa contiene | Anni | Stato |
-|---|---|---|---|
-| `elezioni-politiche` | Camera + Senato per comune | 1948-2022 | in migrazione |
-| `elezioni-europee` | Europee per comune | 1979-2024 | in migrazione |
-| `elezioni-regionali` | Regionali per comune | 1970-2024 | in migrazione |
-| `elezioni-comunali` | Comunali per comune | 1964-2024 | in migrazione |
-| `elezioni-referendum` | Referendum per comune/quesito | 1974-2022 | in migrazione |
-| `dait-amministratori-locali` | amministratori in carica | 2026 | in migrazione |
-| `dait-amministratori-storico` | amministratori 31/12 | 1986-2025 | in migrazione |
+| Dataset | Cosa contiene |
+|---|---|
+| `sut_codici_comuni` | codici ISTAT, Belfiore ed elettorali dei comuni |
+| `sut_comuni_bridge` | codici + regione/provincia + chiavi normalizzate |
+| `sut_collegi_camera_comuni` / `sut_collegi_senato_comuni` | comune → collegio |
 
-Definizioni dettagliate: [`docs/data_dictionary.md`](docs/data_dictionary.md)
+## Esempi di domande
 
-## Support dataset
+- **Come è cambiata l'affluenza dal 1948 a oggi?**
+- **Quali comuni hanno votato più SI al referendum del 2016?**
+- **Chi è il sindaco del tuo comune e quanti consiglieri ha?**
+- **Quante donne sono elette nei consigli comunali dal 1986?**
+- **Come vota Torino rispetto a Napoli?**
 
-Le anagrafiche condivise vivono in `support/` e si eseguono con `make seeds`.
+## Tre modi per accedere
 
-| Slug | Cosa contiene | Uso |
-|---|---|---|
-| `sut-codici-comuni` | codici ISTAT, elettorali e Belfiore dei comuni | lookup per i join territoriali |
+### 1. Via MCP (Lab)
 
-## Perché fidarsi
+- `gcs_query(slug, sql)` — SQL sui parquet pubblicati
+- `toolkit_find` / `toolkit_dataset_overview` — scoperta e schema
+- `toolkit_registry_show repo=open-elezioni` — catalogo e stato run
 
-- fonti ufficiali DAIT ([`docs/sources.md`](docs/sources.md))
-- trasformazioni documentate ([`docs/decisions.md`](docs/decisions.md))
-- controlli automatici prima della pubblicazione (CI + contract test)
+### 2. Via DuckDB
 
-## Comandi
-
-```bash
-make seeds   # support dataset (SUT)
-make run     # dataset principali
-make check   # preflight config
-make registry-write  # rigenera registry/
+```python
+import duckdb
+duckdb.sql("""
+    SELECT anno, SUM(voti_lista) AS voti
+    FROM read_parquet('gs://dataciviclab-clean/open-elezioni/elezioni_regionali/*/*.parquet')
+    WHERE comune = 'TORINO'
+    GROUP BY anno ORDER BY anno
+""").show()
 ```
 
-## Confine con il toolkit
+### 3. Via parquet
 
-Il motore della pipeline vive nel repository `toolkit`. Questa repo definisce
-input, regole e output attesi per ogni dataset; non replica la logica di
-esecuzione.
+Bucket pubblico: `gs://dataciviclab-clean/open-elezioni/` (clean) e
+`gs://dataciviclab-mart/open-elezioni/` (mart), accessibili anche via HTTPS.
+
+## Approfondimenti
+
+- [Discussions](https://github.com/dataciviclab/open-elezioni/discussions)
+- Schema e fonti: [`docs/data_dictionary.md`](docs/data_dictionary.md) · [`docs/sources.md`](docs/sources.md)
+
+## Partecipa
+
+- **Hai una domanda sui dati?** Apri una [Discussion](https://github.com/dataciviclab/open-elezioni/discussions/new?category=Q-A)
+- **Vuoi contribuire?** Vedi [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Licenza
+
+Codice MIT — vedi [LICENSE](LICENSE). Dati: CC BY 4.0 (DAIT).
+
+Questo progetto fa parte di [DataCivicLab](https://github.com/dataciviclab).
