@@ -1,8 +1,6 @@
-name: pipeline
+name: Pipeline
 
 on:
-  push:
-    branches: [main]
   pull_request:
     types: [closed]
     paths:
@@ -11,26 +9,19 @@ on:
   schedule:
     - cron: "0 6 1 * *"
   workflow_dispatch:
-    inputs:
-      dataset:
-        description: "Slug o path del dataset.yml (vuoto = tutti)"
-        required: false
-        default: ""
 
 concurrency:
-  group: pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
+  group: open-elezioni-pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
   cancel-in-progress: false
 
 jobs:
   pipeline:
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'schedule' ||
-      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
-      repo-slug: "${{ github.event.repository.name }}"
-      run-command: ${{ inputs.dataset == '' && 'make run-all' || format('toolkit run --config {0}', inputs.dataset) }}
+      repo-slug: "open-elezioni"
+      run-command: "make run-all"
+      extra-env: "TOOLKIT_ALLOW_SCRIPT_SOURCE=1"
     permissions:
       contents: write
       pull-requests: write
