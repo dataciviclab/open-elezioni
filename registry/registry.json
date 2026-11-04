@@ -604,7 +604,7 @@
       "source": "",
       "source_id": "eligendo",
       "period": {
-        "start": 2024,
+        "start": 1979,
         "end": 2024
       },
       "tags": [
@@ -900,13 +900,160 @@
       ]
     },
     {
+      "slug": "elezioni_provinciali",
+      "name": "Elezioni Provinciali",
+      "description": "",
+      "source": "",
+      "source_id": "eligendo",
+      "period": {
+        "start": 2004,
+        "end": 2011
+      },
+      "tags": [
+        "politica",
+        "elezioni",
+        "provinciali"
+      ],
+      "category": "politica",
+      "columns": [
+        {
+          "name": "data_elezione",
+          "type": "DATE",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "collegio",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "turno",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "candidato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "lista",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "voti_candidato",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "voti_lista",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "elettori_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "votanti_maschi",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "schede_bianche",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "match_sut",
+          "type": "BOOLEAN",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_provinciali/*/elezioni_provinciali_*_clean.parquet",
+        "multi_file": true
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "elezioni_provinciali__mart_voti_lista_collegio"
+      ]
+    },
+    {
       "slug": "elezioni_referendum",
       "name": "Elezioni Referendum",
       "description": "",
       "source": "",
       "source_id": "eligendo",
       "period": {
-        "start": 2022,
+        "start": 1974,
         "end": 2022
       },
       "tags": [
@@ -1048,7 +1195,7 @@
       "source": "",
       "source_id": "eligendo",
       "period": {
-        "start": 2024,
+        "start": 1970,
         "end": 2024
       },
       "tags": [
@@ -1611,6 +1758,16 @@
       }
     },
     {
+      "slug": "elezioni_provinciali__mart_voti_lista_collegio",
+      "dataset": "elezioni_provinciali",
+      "table": "mart_voti_lista_collegio",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_provinciali/*/mart_voti_lista_collegio.parquet",
+        "multi_file": true
+      }
+    },
+    {
       "slug": "elezioni_referendum__mart_trend",
       "dataset": "elezioni_referendum",
       "table": "mart_trend",
@@ -1690,7 +1847,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162728Z_91aba043",
+        "run_id": "20261104T180428Z_4d35882e",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1705,12 +1862,12 @@
         },
         "output_bytes": {
           "raw": 31547327,
-          "clean": 3331810,
-          "mart": 7757
+          "clean": 3313429,
+          "mart": 7771
         },
-        "started_at": "2026-11-04T16:27:28.149867+00:00",
-        "finished_at": "2026-11-04T16:27:32.246999+00:00",
-        "duration_seconds": 4.097
+        "started_at": "2026-11-04T18:04:28.661156+00:00",
+        "finished_at": "2026-11-04T18:04:32.611688+00:00",
+        "duration_seconds": 3.951
       }
     },
     {
@@ -1721,7 +1878,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162732Z_a18f1b18",
+        "run_id": "20261104T180432Z_6b17bb82",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1737,11 +1894,11 @@
         "output_bytes": {
           "raw": 1669375000,
           "clean": 94443978,
-          "mart": 8836
+          "mart": 8830
         },
-        "started_at": "2026-11-04T16:27:32.768603+00:00",
-        "finished_at": "2026-11-04T16:32:04.543071+00:00",
-        "duration_seconds": 271.774
+        "started_at": "2026-11-04T18:04:32.944200+00:00",
+        "finished_at": "2026-11-04T18:08:04.193805+00:00",
+        "duration_seconds": 211.25
       }
     },
     {
@@ -1752,7 +1909,7 @@
       "detail": "anni 1964-2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T163414Z_e5cad02f",
+        "run_id": "20261104T181001Z_794f8a5e",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -1767,12 +1924,12 @@
         },
         "output_bytes": {
           "raw": 1738573,
-          "clean": 373355,
-          "mart": 310875
+          "clean": 373497,
+          "mart": 310476
         },
-        "started_at": "2026-11-04T16:34:14.466272+00:00",
-        "finished_at": "2026-11-04T16:34:17.541924+00:00",
-        "duration_seconds": 3.076
+        "started_at": "2026-11-04T18:10:01.920184+00:00",
+        "finished_at": "2026-11-04T18:10:04.323939+00:00",
+        "duration_seconds": 2.404
       }
     },
     {
@@ -1783,7 +1940,7 @@
       "detail": "anni 1979-2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T163456Z_abf9c2de",
+        "run_id": "20261104T181034Z_531608b8",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -1798,12 +1955,12 @@
         },
         "output_bytes": {
           "raw": 12648879,
-          "clean": 1031614,
-          "mart": 894753
+          "clean": 1032078,
+          "mart": 896675
         },
-        "started_at": "2026-11-04T16:34:56.079863+00:00",
-        "finished_at": "2026-11-04T16:35:04.444529+00:00",
-        "duration_seconds": 8.365
+        "started_at": "2026-11-04T18:10:34.361909+00:00",
+        "finished_at": "2026-11-04T18:10:42.103942+00:00",
+        "duration_seconds": 7.742
       }
     },
     {
@@ -1814,7 +1971,7 @@
       "detail": "anno 2022 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T163504Z_afe24454",
+        "run_id": "20261104T181042Z_f8f951e1",
         "year": 2022,
         "status": "SUCCESS",
         "quality_score": {
@@ -1829,12 +1986,12 @@
         },
         "output_bytes": {
           "raw": 397449066,
-          "clean": 49427610,
-          "mart": 32882565
+          "clean": 49740084,
+          "mart": 32879202
         },
-        "started_at": "2026-11-04T16:35:04.955925+00:00",
-        "finished_at": "2026-11-04T16:36:48.100837+00:00",
-        "duration_seconds": 103.145
+        "started_at": "2026-11-04T18:10:42.382584+00:00",
+        "finished_at": "2026-11-04T18:12:01.284296+00:00",
+        "duration_seconds": 78.902
       }
     },
     {
@@ -1845,7 +2002,7 @@
       "detail": "anni 1974-2022 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T163721Z_3ff10531",
+        "run_id": "20261104T181229Z_7c780244",
         "year": 2022,
         "status": "SUCCESS",
         "quality_score": {
@@ -1860,12 +2017,12 @@
         },
         "output_bytes": {
           "raw": 3140054,
-          "clean": 821452,
+          "clean": 845118,
           "mart": 651079
         },
-        "started_at": "2026-11-04T16:37:21.556239+00:00",
-        "finished_at": "2026-11-04T16:37:24.349126+00:00",
-        "duration_seconds": 2.793
+        "started_at": "2026-11-04T18:12:29.341338+00:00",
+        "finished_at": "2026-11-04T18:12:31.502721+00:00",
+        "duration_seconds": 2.161
       }
     },
     {
@@ -1876,7 +2033,7 @@
       "detail": "anni 1970-2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T163819Z_014e0a67",
+        "run_id": "20261104T181319Z_f6d53c7a",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -1891,12 +2048,43 @@
         },
         "output_bytes": {
           "raw": 1557369,
-          "clean": 145117,
-          "mart": 141966
+          "clean": 127557,
+          "mart": 142549
         },
-        "started_at": "2026-11-04T16:38:19.058894+00:00",
-        "finished_at": "2026-11-04T16:38:20.598089+00:00",
-        "duration_seconds": 1.539
+        "started_at": "2026-11-04T18:13:19.858037+00:00",
+        "finished_at": "2026-11-04T18:13:21.304425+00:00",
+        "duration_seconds": 1.446
+      }
+    },
+    {
+      "id": "elezioni_provinciali",
+      "source_id": "eligendo",
+      "status": "ok",
+      "label": "elezioni_provinciali",
+      "detail": "anni 2004-2011 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T181340Z_558412d6",
+        "year": 2011,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 21786,
+          "clean": 21786,
+          "mart": 16342
+        },
+        "output_bytes": {
+          "raw": 3513324,
+          "clean": 203941,
+          "mart": 197067
+        },
+        "started_at": "2026-11-04T18:13:40.165081+00:00",
+        "finished_at": "2026-11-04T18:13:42.044255+00:00",
+        "duration_seconds": 1.879
       }
     },
     {
@@ -1907,7 +2095,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162711Z_fa1c3be7",
+        "run_id": "20261104T180411Z_410e19bf",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1925,9 +2113,9 @@
           "clean": 133260,
           "mart": 118328
         },
-        "started_at": "2026-11-04T16:27:11.321447+00:00",
-        "finished_at": "2026-11-04T16:27:12.326340+00:00",
-        "duration_seconds": 1.005
+        "started_at": "2026-11-04T18:04:11.750009+00:00",
+        "finished_at": "2026-11-04T18:04:12.741313+00:00",
+        "duration_seconds": 0.991
       }
     },
     {
@@ -1938,7 +2126,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162714Z_10501db0",
+        "run_id": "20261104T180415Z_f35d37f3",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1956,9 +2144,9 @@
           "clean": 108687,
           "mart": 108693
         },
-        "started_at": "2026-11-04T16:27:14.901777+00:00",
-        "finished_at": "2026-11-04T16:27:15.771701+00:00",
-        "duration_seconds": 0.87
+        "started_at": "2026-11-04T18:04:15.102678+00:00",
+        "finished_at": "2026-11-04T18:04:15.951230+00:00",
+        "duration_seconds": 0.849
       }
     },
     {
@@ -1969,7 +2157,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162718Z_0f612e7b",
+        "run_id": "20261104T180418Z_c3f2b4a1",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1987,9 +2175,9 @@
           "clean": 103269,
           "mart": 103275
         },
-        "started_at": "2026-11-04T16:27:18.311422+00:00",
-        "finished_at": "2026-11-04T16:27:19.255759+00:00",
-        "duration_seconds": 0.944
+        "started_at": "2026-11-04T18:04:18.387637+00:00",
+        "finished_at": "2026-11-04T18:04:19.271996+00:00",
+        "duration_seconds": 0.884
       }
     },
     {
@@ -2000,7 +2188,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T162719Z_751fe48d",
+        "run_id": "20261104T180419Z_c1158c7b",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2015,12 +2203,12 @@
         },
         "output_bytes": {
           "raw": 451016,
-          "clean": 207962,
-          "mart": 158127
+          "clean": 207832,
+          "mart": 158325
         },
-        "started_at": "2026-11-04T16:27:19.687504+00:00",
-        "finished_at": "2026-11-04T16:27:24.164684+00:00",
-        "duration_seconds": 4.477
+        "started_at": "2026-11-04T18:04:19.572666+00:00",
+        "finished_at": "2026-11-04T18:04:24.526194+00:00",
+        "duration_seconds": 4.954
       }
     }
   ],
@@ -2110,6 +2298,24 @@
             "semantic_type": "cadastral_code"
           },
           {
+            "slug": "elezioni_provinciali",
+            "name": "Elezioni Provinciali",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "elezioni_provinciali",
+            "name": "Elezioni Provinciali",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "elezioni_provinciali",
+            "name": "Elezioni Provinciali",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
+          },
+          {
             "slug": "elezioni_referendum",
             "name": "Elezioni Referendum",
             "column": "comune",
@@ -2195,9 +2401,9 @@
           }
         ],
         "types": {
-          "municipality_code": 10,
-          "cadastral_code": 8,
-          "municipality_name": 9
+          "municipality_code": 11,
+          "cadastral_code": 9,
+          "municipality_name": 10
         }
       },
       "Provincia": {
@@ -2247,6 +2453,12 @@
             "semantic_type": "province_code"
           },
           {
+            "slug": "elezioni_provinciali",
+            "name": "Elezioni Provinciali",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
             "slug": "elezioni_referendum",
             "name": "Elezioni Referendum",
             "column": "provincia",
@@ -2278,7 +2490,7 @@
           }
         ],
         "types": {
-          "province_code": 12
+          "province_code": 13
         }
       },
       "Regione": {
@@ -2310,6 +2522,12 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "elezioni_provinciali",
+            "name": "Elezioni Provinciali",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "elezioni_referendum",
             "name": "Elezioni Referendum",
             "column": "regione",
@@ -2329,7 +2547,7 @@
           }
         ],
         "types": {
-          "region_code": 7
+          "region_code": 8
         }
       },
       "Tempo": {
