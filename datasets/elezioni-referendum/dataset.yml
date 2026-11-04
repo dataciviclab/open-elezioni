@@ -7,6 +7,7 @@ dataset:
   tags: [politica, elezioni, referendum]
   category: politica
   years: [1974, 1978, 1981, 1985, 1987, 1989, 1990, 1991, 1993, 1995, 1997, 1999, 2000, 2001, 2003, 2005, 2006, 2009, 2011, 2016, 2020, 2022]
+  time_coverage: {start_year: 1974, end_year: 2022}
 
 support:
   - name: "sut_comuni"
