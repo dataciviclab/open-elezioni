@@ -67,3 +67,6 @@ service_account.json
 # =========================
 nohup.out
 _local/
+
+# output di preprocess (script source) in dataset/support
+raw_input.csv

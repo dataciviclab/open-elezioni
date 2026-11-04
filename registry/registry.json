@@ -72,6 +72,250 @@
       "mart_refs": [
         "sut_codici_comuni__mart_comuni"
       ]
+    },
+    {
+      "slug": "sut_collegi_camera_comuni",
+      "name": "Sut Collegi Camera Comuni",
+      "description": "Mapping comune -> collegio plurinominale/uninominale Camera (SUT/DAIT).",
+      "source": "",
+      "source_id": "dait_sut",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "tags": [
+        "support",
+        "territorio",
+        "collegi",
+        "camera",
+        "elezioni"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "circoscrizione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "collegio_plurinominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "collegio_uninominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "sigla_provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sigla_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/sut_collegi_camera_comuni/2026/sut_collegi_camera_comuni_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "sut_collegi_camera_comuni__mart_collegi_comuni"
+      ]
+    },
+    {
+      "slug": "sut_collegi_senato_comuni",
+      "name": "Sut Collegi Senato Comuni",
+      "description": "Mapping comune -> collegio plurinominale/uninominale Senato (SUT/DAIT).",
+      "source": "",
+      "source_id": "dait_sut",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "tags": [
+        "support",
+        "territorio",
+        "collegi",
+        "senato",
+        "elezioni"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "circoscrizione_regionale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "collegio_plurinominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "collegio_uninominale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "sigla_provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "comune_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sigla_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/sut_collegi_senato_comuni/2026/sut_collegi_senato_comuni_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "sut_collegi_senato_comuni__mart_collegi_comuni"
+      ]
+    },
+    {
+      "slug": "sut_comuni_bridge",
+      "name": "Sut Comuni Bridge",
+      "description": "Bridge comuni: codici ISTAT/Belfiore/elettorale + regione/provincia normalizzate (SUT).",
+      "source": "",
+      "source_id": "dait_sut",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "tags": [
+        "support",
+        "territorio",
+        "comuni",
+        "codici",
+        "istat",
+        "bridge"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "sigla",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "codice_belfiore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "cadastral_code"
+        },
+        {
+          "name": "codice_elettorale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione_norm",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/sut_comuni_bridge/2026/sut_comuni_bridge_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "sut_comuni_bridge__mart_comuni"
+      ]
     }
   ],
   "marts": [
@@ -82,6 +326,36 @@
       "location": {
         "type": "gcs",
         "path": "gs://dataciviclab-mart/sut_codici_comuni/2026/mart_comuni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "sut_collegi_camera_comuni__mart_collegi_comuni",
+      "dataset": "sut_collegi_camera_comuni",
+      "table": "mart_collegi_comuni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/sut_collegi_camera_comuni/2026/mart_collegi_comuni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "sut_collegi_senato_comuni__mart_collegi_comuni",
+      "dataset": "sut_collegi_senato_comuni",
+      "table": "mart_collegi_comuni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/sut_collegi_senato_comuni/2026/mart_collegi_comuni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "sut_comuni_bridge__mart_comuni",
+      "dataset": "sut_comuni_bridge",
+      "table": "mart_comuni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/sut_comuni_bridge/2026/mart_comuni.parquet",
         "multi_file": false
       }
     }
@@ -95,7 +369,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261104T104227Z_c4a91934",
+        "run_id": "20261104T105455Z_da81e8e8",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -113,9 +387,102 @@
           "clean": 133260,
           "mart": 118328
         },
-        "started_at": "2026-11-04T10:42:27.408725+00:00",
-        "finished_at": "2026-11-04T10:42:29.190635+00:00",
-        "duration_seconds": 1.782
+        "started_at": "2026-11-04T10:54:55.889716+00:00",
+        "finished_at": "2026-11-04T10:54:57.050369+00:00",
+        "duration_seconds": 1.161
+      }
+    },
+    {
+      "id": "sut_collegi_camera_comuni",
+      "source_id": "dait_sut",
+      "status": "ok",
+      "label": "sut_collegi_camera_comuni",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T105459Z_b8ee1753",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 7906,
+          "clean": 7906,
+          "mart": 7906
+        },
+        "output_bytes": {
+          "raw": 568410,
+          "clean": 108687,
+          "mart": 108693
+        },
+        "started_at": "2026-11-04T10:54:59.891144+00:00",
+        "finished_at": "2026-11-04T10:55:01.002315+00:00",
+        "duration_seconds": 1.111
+      }
+    },
+    {
+      "id": "sut_collegi_senato_comuni",
+      "source_id": "dait_sut",
+      "status": "ok",
+      "label": "sut_collegi_senato_comuni",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T105503Z_a40cc52e",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 7898,
+          "clean": 7898,
+          "mart": 7898
+        },
+        "output_bytes": {
+          "raw": 532029,
+          "clean": 103269,
+          "mart": 103275
+        },
+        "started_at": "2026-11-04T10:55:03.640832+00:00",
+        "finished_at": "2026-11-04T10:55:04.727063+00:00",
+        "duration_seconds": 1.086
+      }
+    },
+    {
+      "id": "sut_comuni_bridge",
+      "source_id": "dait_sut",
+      "status": "ok",
+      "label": "sut_comuni_bridge",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261104T105505Z_31b98950",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 7894,
+          "clean": 7894,
+          "mart": 7894
+        },
+        "output_bytes": {
+          "raw": 451016,
+          "clean": 190548,
+          "mart": 190548
+        },
+        "started_at": "2026-11-04T10:55:05.722423+00:00",
+        "finished_at": "2026-11-04T10:55:08.716980+00:00",
+        "duration_seconds": 2.995
       }
     }
   ],
@@ -143,12 +510,84 @@
             "name": "Sut Codici Comuni",
             "column": "codice_belfiore",
             "semantic_type": "cadastral_code"
+          },
+          {
+            "slug": "sut_collegi_camera_comuni",
+            "name": "Sut Collegi Camera Comuni",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "sut_collegi_senato_comuni",
+            "name": "Sut Collegi Senato Comuni",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "sut_comuni_bridge",
+            "name": "Sut Comuni Bridge",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "sut_comuni_bridge",
+            "name": "Sut Comuni Bridge",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "sut_comuni_bridge",
+            "name": "Sut Comuni Bridge",
+            "column": "codice_belfiore",
+            "semantic_type": "cadastral_code"
           }
         ],
         "types": {
-          "municipality_name": 1,
-          "municipality_code": 1,
-          "cadastral_code": 1
+          "municipality_name": 4,
+          "municipality_code": 2,
+          "cadastral_code": 2
+        }
+      },
+      "Provincia": {
+        "entity": "Provincia",
+        "label": "Provincia",
+        "datasets": [
+          {
+            "slug": "sut_collegi_camera_comuni",
+            "name": "Sut Collegi Camera Comuni",
+            "column": "sigla_provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "sut_collegi_senato_comuni",
+            "name": "Sut Collegi Senato Comuni",
+            "column": "sigla_provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "sut_comuni_bridge",
+            "name": "Sut Comuni Bridge",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          }
+        ],
+        "types": {
+          "province_code": 3
+        }
+      },
+      "Regione": {
+        "entity": "Regione",
+        "label": "Regione",
+        "datasets": [
+          {
+            "slug": "sut_comuni_bridge",
+            "name": "Sut Comuni Bridge",
+            "column": "regione",
+            "semantic_type": "region_code"
+          }
+        ],
+        "types": {
+          "region_code": 1
         }
       }
     },

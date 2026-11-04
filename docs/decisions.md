@@ -44,3 +44,14 @@
   (7.000), non 1; il test del template era più rigido del runtime.
 - impatto: solo `tests/test_contract.py` locale; nessun cambio al toolkit.
 
+## D-006 — Strategia di join col bridge SUT
+
+- decisione: joinare i dataset elettorali su `UPPER(TRIM(comune))` con
+  `LEFT JOIN`; la provincia serve solo per i 5 nomi ambigui.
+- motivo: le province storiche hanno nomi diversi dallo snapshot SUT
+  (`VERBANIA`/`VERB.-CUS.OSSOLA`/`VERBANO-CUSIO-OSSOLA`, `FORLI`/`RIMINI`/…),
+  e il match comune+provincia scende da ~91% a ~78%.
+- impatto: `codice_istat` può essere NULL; tenere sempre la riga e aggiungere
+  un flag di copertura nei clean dei dataset.
+
+

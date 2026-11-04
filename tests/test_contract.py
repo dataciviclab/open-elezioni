@@ -155,14 +155,27 @@ def test_required_tables_and_rules_match_declared_marts(dataset_configs: list[Pa
 
 @pytest.mark.contract
 def test_no_run_outputs_committed() -> None:
+    """Controlla solo i file tracciati da git: `out/` è gitignored."""
+    import subprocess
+
     if not OUT_DIR.exists():
         return
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "out"],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+        )
+    except FileNotFoundError:
+        return
+    if result.returncode != 0:
+        return
+
     offenders: list[str] = []
-    for path in OUT_DIR.rglob("*"):
-        if not path.is_file():
-            continue
-        if path.name == "README.md":
-            continue
+    for rel in result.stdout.splitlines():
+        path = REPO_ROOT / rel
         if path.suffix.lower() in BLOCKED_OUT_EXTENSIONS or "_runs" in path.parts:
-            offenders.append(str(path.relative_to(REPO_ROOT)).replace("\\", "/"))
+            offenders.append(rel)
     assert not offenders, f"Non committare output di run in out/: {offenders}"
+

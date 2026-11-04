@@ -1,0 +1,61 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "sut_collegi_senato_comuni"
+  source_id: "dait_sut"
+  tags: [support, territorio, collegi, senato, elezioni]
+  category: support
+  description: "Mapping comune -> collegio plurinominale/uninominale Senato (SUT/DAIT)."
+  years: [2026]
+  time_coverage: {start_year: 2026, end_year: 2026}
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "sut_collegi_senato_comuni_csv"
+      type: "http_file"
+      args:
+        url: "https://dait.interno.gov.it/territorio-e-autonomie-locali/indice-sut/open-data/elenco-collegi-senato-comuni-csv.php"
+        filename: "sut_collegi_senato_comuni.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns:
+    - circoscrizione_regionale
+    - collegio_plurinominale
+    - collegio_uninominale
+    - comune
+    - sigla_provincia
+    - comune_norm
+    - sigla_norm
+  read:
+    source: auto
+    mode: latest
+    delim: ";"
+    encoding: "utf-8"
+    header: true
+    skip: 1
+    all_varchar: true
+  validate:
+    primary_key: [comune, collegio_uninominale]
+    not_null: [comune, sigla_provincia, collegio_uninominale]
+    min_rows: 7000
+
+mart:
+  tables:
+    - name: "mart_collegi_comuni"
+      sql: "sql/mart_collegi_comuni.sql"
+  required_tables:
+    - "mart_collegi_comuni"
+  validate:
+    table_rules:
+      mart_collegi_comuni:
+        min_rows: 7000
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: minimal

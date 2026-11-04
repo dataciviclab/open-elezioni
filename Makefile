@@ -3,6 +3,9 @@
 # con RAM ridotta il pipeline imposta limiti conservativi.
 TOOLKIT = toolkit
 
+# Il support SUT bridge usa un preprocess (strip dei codici Excel `="028001"`).
+export TOOLKIT_ALLOW_SCRIPT_SOURCE := 1
+
 # --- Dataset del repo -------------------------------------------------------
 # Convenzione (ADR-001, modello multi-dataset):
 #   datasets/  = dataset principali (una dir per dataset, ognuna con dataset.yml)
