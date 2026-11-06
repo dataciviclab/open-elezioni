@@ -2,11 +2,11 @@
 """Scarica, estrae e unifica risultati elezioni politiche (Camera+Senato 1948-2022)."""
 
 import csv
-import shutil
-import subprocess
 import sys
 import zipfile
 from pathlib import Path
+
+from lab_connectors.http import download
 
 CACHE_DIR = Path(__file__).resolve().parent / "cache"
 HEADER = [
@@ -63,26 +63,11 @@ def _int(val):
 
 
 def _dload(url, dest):
+    """Scarica il file con la catena HTTP condivisa (retry + SSL fallback)."""
     if dest.exists():
         return
     dest.parent.mkdir(parents=True, exist_ok=True)
-    curl = shutil.which("curl")
-    if curl:
-        subprocess.run(
-            [curl, "-k", "-sS", "-L", "--max-time", "120", "-o", str(dest), url],
-            check=True,
-            timeout=120,
-        )
-        return
-    import ssl
-    import urllib.request
-
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=120, context=ctx) as r:
-        dest.write_bytes(r.read())
+    dest.write_bytes(download(url, timeout=120, user_agent="Mozilla/5.0"))
 
 
 def _extract(zip_path, out_dir):
