@@ -1,5 +1,5 @@
 WITH base AS (
-    -- Clean: elezioni referendum — risultati per comune/quesito (1995-2022)
+    -- Clean: elezioni referendum — risultati per comune/quesito (1974-2026)
     -- Usa macro standard del toolkit: cast_bigint, normalize_string
     
     SELECT

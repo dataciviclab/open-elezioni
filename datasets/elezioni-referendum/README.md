@@ -1,6 +1,6 @@
 # elezioni-referendum
 
-Risultati dei referendum abrogativi e costituzionali in Italia per comune e quesito (1974-2022).
+Risultati dei referendum abrogativi e costituzionali in Italia per comune e quesito (1974-2026).
 
 **Fonte**: Eligendo — Archivio storico elettorale del DAIT (Ministero dell'Interno)
 **Licenza**: dati pubblici
@@ -11,9 +11,9 @@ Come ha votato l'Italia nei referendum? Quali territori hanno votato SI o NO e c
 
 ## Dataset
 
-- **Copertura**: 1974–2022 (23 tornate, 77 quesiti)
-- **Granularità**: comunale (1974-1985), provinciale (1987-2006), comunale (2009-2022)
-- **Righe**: ~198.000
+- **Copertura**: 1974–2026 (25 tornate)
+- **Granularità**: comunale (1974-1985), provinciale (1987-2006), comunale (2009-2026)
+- **Righe**: ~245.000
 - **Colonne**: 14 (data_elezione, regione, provincia, comune, elettori, votanti, voti_si, voti_no, ...)
 
 ## Schema (14 colonne)
@@ -51,10 +51,10 @@ Come ha votato l'Italia nei referendum? Quali territori hanno votato SI o NO e c
 ## Note
 
 - **1987-2006**: solo granularità provinciale (comune = NULL)
-- **1974-1985 e 2009-2022**: granularità comunale completa
-- **2025-2026**: non inclusi, la fonte pubblica solo XLSX (supporto XLSX da fare)
+- **1974-1985 e 2009-2026**: granularità comunale completa
+- **2025-2026**: solo comuni italiani; il voto estero (file `EsteroNazione`) è escluso dal perimetro
 - `mart_trend`: legge da tutti i clean parquet locali via glob (`{root}/data/clean/elezioni_referendum/*/...`). Non serve manutenzione: ogni nuovo anno runnato entra automaticamente.
 
 ## Stato
 
-`candidate` — run verificato su tutte le 22 annualità (23 tornate).
+`candidate` — run verificato su tutte le 24 annualità (25 tornate).

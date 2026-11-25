@@ -1,11 +1,11 @@
-# Elezioni Regionali 1970-2024 — risultati per comune
+# Elezioni Regionali 1970-2025 — risultati per comune
 
 Risultati delle elezioni regionali italiane a livello comunale, da Eligendo (DAIT).
 
 ## Dati
 
-**Periodo**: 1970-2024 (21 anni, 28 tornate)
-**Righe totali**: ~962.000
+**Periodo**: 1970-2025 (22 anni, 35 tornate)
+**Righe totali**: ~1,01 M
 **Qualità clean**: 100/100
 
 | Anno | Tornate | Righe clean |
@@ -30,12 +30,11 @@ Risultati delle elezioni regionali italiane a livello comunale, da Eligendo (DAI
 | 2020 | 26/01 | 10.299 |
 | 2021 | 03/10 | 8.484 |
 | 2023 | 12/02 | 24.125 |
-| 2024 | 09/06 | 15.266 |
+| 2024 | 10/03, 21/04, 09/06, 27/10, 17/11 | 31.055 |
+| 2025 | 05/10, 12/10, 23/11 | 31.851 |
 
 ### Escluse
 - **2011-10-16** e **2020-09-20**: file XLSX non gestiti dal toolkit
-- **2024** (10/03, 21/04, 27/10, 17/11) e **2025**: formato per sezione
-  (Scrutini + Preferenze), parser dedicato da fare
 
 ### Schema clean (12 colonne)
 

@@ -8,8 +8,9 @@ Eligendo — https://elezionistorico.interno.gov.it/
 Open data DAIT: https://dait.interno.gov.it/elezioni/open-data
 
 ## Perimetro
-41 anni, 160 tornate (1964-2024). Restano fuori:
-- 2024-11-17, 2025, 2026: formato per sezione (Scrutini/Liste/LivSez)
+42 anni, 162 tornate (1964-2026). Restano fuori:
+- 2024-11-17 e 2025 (3 tornate): formato per sezione (ListeLivSez XLSX +
+  Scrutini per sezione), parser dedicato da fare.
 
 ## Schema raw
 Colonne variabili per tornata (normalizzate via COL_MAP regex):
@@ -28,7 +29,8 @@ voti_candidato.
 - 2023: XLSX single-file
 - 2024-06-09: ZIP con Scrutini + Liste separati (merge)
 - 2024-07-28: CSV combinato in ZIP
-- Non gestiti: 2024-11-17, 2025, 2026 (formato per sezione)
+- 2026-05-24 e 2026-06-07: TXT Liste&Cand + Scrutini LivComune (merge)
+- Non gestiti: 2024-11-17 e 2025 (formato per sezione)
 
 ## Differenze sorgente degne di nota
 - 1970: liste con `VOTI`/`SEGGI` (non `VOTILISTA`/`SEGGILISTA`)
