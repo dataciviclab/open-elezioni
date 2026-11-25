@@ -78,7 +78,7 @@ SOURCES: dict[int, list[tuple[str, str, bool]]] = {
     ],
     2024: [
         (
-            "https://dait.interno.gov.it/documenti/opendata/europee/europee-20240609.zip",
+            "https://dait.interno.gov.it/documenti/opendata/europee/Europee-20240609.zip",
             "2024-06-09",
             True,
         )
