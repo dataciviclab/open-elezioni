@@ -24,6 +24,10 @@ Colonne variabili per anno (normalizzate via COL_MAP regex):
   LivComune, 2026 LivComune con riga di titolo prima dell'header). Il parsing
   sceglie LivComune, salta il titolo e calcola `voti_no` = validi − sì quando
   la fonte non lo porta.
+- 1995: tre quesiti hanno codice alfabetico (A, D, E); `clean.sql` casta
+  `num_quesito` a BIGINT e nel clean restano NULL (i voti sono presenti).
+  Il conteggio dei quesiti distinti nel clean e' quindi 79: i tre codici
+  alfabetici del 1995 non entrano nel conteggio.
 
 ## Note
 - I quesiti multipli per anno hanno lo stesso num_quesito per tutti i comuni

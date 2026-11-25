@@ -11,7 +11,7 @@ Come ha votato l'Italia nei referendum? Quali territori hanno votato SI o NO e c
 
 ## Dataset
 
-- **Copertura**: 1974–2026 (25 tornate, 83 quesiti)
+- **Copertura**: 1974–2026 (25 tornate)
 - **Granularità**: comunale (1974-1985), provinciale (1987-2006), comunale (2009-2026)
 - **Righe**: ~245.000
 - **Colonne**: 14 (data_elezione, regione, provincia, comune, elettori, votanti, voti_si, voti_no, ...)
