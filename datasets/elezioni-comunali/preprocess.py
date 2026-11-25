@@ -75,6 +75,7 @@ DATES: dict[int, list[str]] = {
     2022: ["20220612", "20221127"],
     2023: ["20230514", "20230528", "20231022"],
     2024: ["20240609", "20240728"],
+    2026: ["20260524", "20260607"],
 }
 
 SOURCES: dict[int, list[tuple[str, str, bool]]] = {
@@ -278,6 +279,10 @@ def process_2024(url: str, election_date: str) -> list[dict]:
         for base, rows in iter_text_entries(zf):
             if not rows:
                 continue
+            # Dal 2026 gli ZIP includono anche le varianti per sezione: si usa
+            # il livello comunale per non duplicare le righe.
+            if "sezione" in base.lower() or "livsez" in base.lower():
+                continue
             if "scrutini" in base.lower():
                 scrutini = rows
             elif "liste" in base.lower() or "candidati" in base.lower():
@@ -469,7 +474,7 @@ def main():
             )
         elif year == 2023:
             records = process_xlsx(url, election_date, [{"match": "*.xlsx"}])
-        elif election_date == "2024-06-09":
+        elif election_date in {"2024-06-09", "2026-05-24", "2026-06-07"}:
             records = process_2024(url, election_date)
         elif year == 2021:
             records = process_2021(url, election_date)
