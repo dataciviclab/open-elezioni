@@ -20,7 +20,10 @@ Colonne variabili per anno (normalizzate via COL_MAP regex):
 - 2001: solo referendum costituzionale (Titolo V) — diverso dagli abrogativi
 - 1946 (referendum istituzionale monarchia/repubblica): escluso, la fonte usa
   31 CIRCOSCRIZIONI senza REGIONE → candidato separato
-- 2025 e 2026: ZIP con soli XLSX, non gestiti dal preprocess (serve supporto XLSX)
+- 2025 e 2026: inclusi; i ZIP sono stati ripubblicati in CSV (2025 con
+  LivComune, 2026 LivComune con riga di titolo prima dell'header). Il parsing
+  sceglie LivComune, salta il titolo e calcola `voti_no` = validi − sì quando
+  la fonte non lo porta.
 
 ## Note
 - I quesiti multipli per anno hanno lo stesso num_quesito per tutti i comuni

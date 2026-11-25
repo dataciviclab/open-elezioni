@@ -173,6 +173,20 @@ SOURCES: dict[int, list[tuple[str, str, bool]]] = {
             True,
         )
     ],
+    2025: [
+        (
+            "https://dait.interno.gov.it/documenti/opendata/referendum/referendum-20250608.zip",
+            "2025-06-08",
+            True,
+        )
+    ],
+    2026: [
+        (
+            "https://dait.interno.gov.it/documenti/opendata/referendum/referendum-20260322.zip",
+            "2026-03-22",
+            True,
+        )
+    ],
 }
 
 # Alcuni ZIP storici (es. 1985) non hanno la riga di intestazione: le colonne
@@ -194,8 +208,11 @@ HEADERLESS_COLS = [
 
 COL_MAP: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^REGIONE$", re.I), "regione"),
+    (re.compile(r"^REG$", re.I), "regione"),
     (re.compile(r"^PROV(INCIA)?$", re.I), "provincia"),
+    (re.compile(r"^COM$", re.I), "comune"),
     (re.compile(r"^COMUNE$", re.I), "comune"),
+    (re.compile(r"^SEZIONE$", re.I), "sezione"),
     (
         re.compile(r"^(ELETTORI_UOMINI|ELETTORI_MASCHI|ELETTORIMASCHI|ELETTORI MASCHI)$", re.I),
         "elettori_uomini",
@@ -211,9 +228,10 @@ COL_MAP: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^(SCHEDE_NULLE|SCHEDENULLE)$", re.I), "schede_nulle"),
     (re.compile(r"^(SCHEDE_BIANCHE|SKBIANCHE|SCHEDEBIANCHE)$", re.I), "schede_bianche"),
     (re.compile(r"^(SCHEDE_CONTESTATE|SCHEDECONTESTATE)$", re.I), "schede_contestate"),
-    (re.compile(r"^(NUM_REFERENDUM|NUMREFERENDUM|N_QUESITO)$", re.I), "num_quesito"),
-    (re.compile(r"^QUESITO$", re.I), "descrizione_quesito"),
-    (re.compile(r"^DESCR_REFERENDUM$", re.I), "descrizione_quesito"),
+    (re.compile(r"^(NUM_REFERENDUM|NUMREFERENDUM|N_QUESITO|NUMQUESITO)$", re.I), "num_quesito"),
+    (re.compile(r"^(QUESITO|DESCR_REFERENDUM|QUESITOREFERENDUM)$", re.I), "descrizione_quesito"),
+    (re.compile(r"^VOTIVALIDI_SI$", re.I), "voti_si"),
+    (re.compile(r"^VOTIVALIDI$", re.I), "voti_validi"),
 ]
 
 
@@ -244,7 +262,9 @@ def smart_decode(data: bytes) -> str:
 
 
 def parse_csv(content: str) -> list[list[str]]:
-    reader = csv.reader(io.StringIO(content), delimiter=";")
+    first_line = next((line for line in content.splitlines() if line.strip()), "")
+    delimiter = "\t" if first_line.count("\t") > first_line.count(";") else ";"
+    reader = csv.reader(io.StringIO(content, newline=""), delimiter=delimiter)
     return [row for row in reader if any(cell.strip() for cell in row)]
 
 
@@ -264,51 +284,93 @@ def normalize_columns(header: list[str]) -> tuple[list[str], list[int]]:
     return norm, indices
 
 
+def _num(value) -> int | None:
+    if value is None or value == "":
+        return None
+    try:
+        return int(float(str(value).replace(",", ".")))
+    except (TypeError, ValueError):
+        return None
+
+
+def _pick_header(rows: list[list[str]]) -> tuple[int | None, list[str], list[int]]:
+    """Trova la riga di intestazione (alcuni file hanno un titolo davanti)."""
+    for index, row in enumerate(rows[:6]):
+        names, indices = normalize_columns(row)
+        if len(names) >= 3:
+            return index, names, indices
+    return None, [], []
+
+
 def parse_zip_bytes(raw: bytes, election_date: str) -> list[dict]:
-    records = []
+    entries: list[tuple[str, list[list[str]]]] = []
     with zipfile.ZipFile(io.BytesIO(raw)) as zf:
         for name in zf.namelist():
             base = os.path.basename(name)
-            if base.startswith("~") or base.startswith("."):
+            if not base or base.startswith("~") or base.startswith("."):
                 continue
-            if not base.lower().endswith(".csv") and not base.lower().endswith(".txt"):
+            if not base.lower().endswith((".csv", ".txt")):
                 continue
             if "votanti" in base.lower():
                 continue
-            content = zf.read(name)
-            decoded = smart_decode(content)
-            rows = parse_csv(decoded)
-            if not rows:
+            rows = parse_csv(smart_decode(zf.read(name)))
+            if rows:
+                entries.append((base, rows))
+
+    # LivComune vince sulle varianti per sezione; i file estero restano fuori
+    # quando esiste la copertura Italia.
+    selected = [entry for entry in entries if "livcomune" in entry[0].lower()]
+    if not selected:
+        selected = [entry for entry in entries if "estero" not in entry[0].lower()]
+    if not selected:
+        selected = entries
+
+    records: list[dict] = []
+    for _base, rows in selected:
+        header_index, col_names, col_indices = _pick_header(rows)
+        title = ""
+        if header_index is None:
+            # Fonte senza intestazione (es. 1985): la prima riga e' gia' un record.
+            col_names, col_indices = normalize_columns(HEADERLESS_COLS)
+            data_rows = rows
+        else:
+            if header_index > 0:
+                title = " ".join(cell.strip() for cell in rows[0] if cell.strip())
+            data_rows = rows[header_index + 1:]
+
+        for row in data_rows:
+            if not row or not any(cell.strip() for cell in row):
                 continue
-            col_names, col_indices = normalize_columns(rows[0])
-            if col_names:
-                data_rows = rows[1:]
-            else:
-                # Fonte senza intestazione (es. 1985): la prima riga è già un record.
-                col_names, col_indices = normalize_columns(HEADERLESS_COLS)
-                data_rows = rows
-            for row in data_rows:
-                if not row or not any(cell.strip() for cell in row):
-                    continue
-                rec = {"data_elezione": election_date}
-                for cname, idx in zip(col_names, col_indices):
-                    if idx < len(row):
-                        val = row[idx].strip().strip('"')
-                        if cname in (
-                            "elettori",
-                            "elettori_uomini",
-                            "votanti",
-                            "votanti_uomini",
-                            "voti_si",
-                            "voti_no",
-                            "schede_nulle",
-                            "schede_bianche",
-                            "schede_contestate",
-                            "num_quesito",
-                        ):
-                            val = normalize_number(val)
-                        rec[cname] = val
-                records.append(rec)
+            rec = {"data_elezione": election_date}
+            for cname, idx in zip(col_names, col_indices):
+                if idx < len(row):
+                    val = row[idx].strip().strip('"')
+                    if cname in (
+                        "elettori",
+                        "elettori_uomini",
+                        "votanti",
+                        "votanti_uomini",
+                        "voti_si",
+                        "voti_no",
+                        "voti_validi",
+                        "schede_nulle",
+                        "schede_bianche",
+                        "schede_contestate",
+                        "num_quesito",
+                    ):
+                        val = normalize_number(val)
+                    rec[cname] = val
+            if not rec.get("voti_no"):
+                validi, si = _num(rec.get("voti_validi")), _num(rec.get("voti_si"))
+                if validi is not None and si is not None:
+                    rec["voti_no"] = str(validi - si)
+            if title and not rec.get("descrizione_quesito"):
+                rec["descrizione_quesito"] = title
+            records.append(rec)
+
+    if records and not any(rec.get("num_quesito") for rec in records):
+        for rec in records:
+            rec["num_quesito"] = "1"
     return records
 
 
