@@ -52,6 +52,7 @@ Come ha votato l'Italia nei referendum? Quali territori hanno votato SI o NO e c
 
 - **1987-2006**: solo granularità provinciale (comune = NULL)
 - **1974-1985 e 2009-2026**: granularità comunale completa
+- **2025-2026**: solo comuni italiani; il voto estero (file `EsteroNazione`) è escluso dal perimetro
 - `mart_trend`: legge da tutti i clean parquet locali via glob (`{root}/data/clean/elezioni_referendum/*/...`). Non serve manutenzione: ogni nuovo anno runnato entra automaticamente.
 
 ## Stato

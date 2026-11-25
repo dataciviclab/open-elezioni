@@ -324,6 +324,13 @@ def parse_zip_bytes(raw: bytes, election_date: str) -> list[dict]:
         selected = [entry for entry in entries if "estero" not in entry[0].lower()]
     if not selected:
         selected = entries
+    if selected and all(
+        "livsez" in name.lower() or "_sez" in name.lower() for name, _ in selected
+    ):
+        raise ValueError(
+            "Referendum: fonte solo per sezione (LivSez) senza LivComune; "
+            "l'aggregazione a comune non e' implementata"
+        )
 
     records: list[dict] = []
     for _base, rows in selected:
