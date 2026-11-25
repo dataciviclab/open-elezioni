@@ -15,12 +15,10 @@ datasets/elezioni-regionali/
 
 ## Perimetro
 
-21 anni, 28 tornate (1970-2024). Esclusi:
+22 anni, 35 tornate (1970-2025). Esclusi:
 - **2011-10-16** e **2020-09-20**: la fonte pubblica solo XLSX.
-- **2024**: coperta solo la tornata del 09/06 (Piemonte); le altre 4 date
-  (10/03, 21/04, 27/10, 17/11) usano il formato per sezione
-  (Scrutini + Preferenze) non gestito dal parser attuale.
-- **2025**: formato nuovo (SCRUTINI/PREFERENZE/VOTANTI + `dato per sezione/`).
+- I file delle tornate 2024 e 2025 con dati per sezione vengono aggregati a
+  comune nel preprocess (somma voti, affluenza deduplicata per sezione).
 
 ## Mappa fonti
 
@@ -71,7 +69,6 @@ Va attivato con `TOOLKIT_ALLOW_SCRIPT_SOURCE=1` nell'ambiente di run.
 
 ### Esclusioni
 - **2011-10-16** e **2020-09-20**: file XLSX.
-- **2024 (altre date) e 2025**: formato per sezione, parser dedicato da fare.
 - **File preferenze**: ogni ZIP ha un secondo file con le preferenze ai
   consiglieri. Non incluso nel perimetro.
 
@@ -106,8 +103,9 @@ TOOLKIT_ALLOW_SCRIPT_SOURCE=1 toolkit run -c datasets/elezioni-regionali/dataset
 | 2020 | 10.299 |
 | 2021 | 8.484 |
 | 2023 | 24.125 |
-| 2024 | 15.266 |
-| **Totale** | **~962.000** |
+| 2024 | 31.055 |
+| 2025 | 31.851 |
+| **Totale** | **~1,01 M** |
 
 ## Cross-repo
 

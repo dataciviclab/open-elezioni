@@ -197,8 +197,45 @@ SOURCES: dict[int, list[tuple[str, str, bool]]] = {
     ],
     2024: [
         (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20240310.zip",
+            "2024-03-10",
+            True,
+        ),
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20240421.zip",
+            "2024-04-21",
+            True,
+        ),
+        (
             "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20240609.zip",
             "2024-06-09",
+            True,
+        ),
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20241027.zip",
+            "2024-10-27",
+            True,
+        ),
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20241117.zip",
+            "2024-11-17",
+            True,
+        ),
+    ],
+    2025: [
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20251005.zip",
+            "2025-10-05",
+            True,
+        ),
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20251012.zip",
+            "2025-10-12",
+            True,
+        ),
+        (
+            "https://dait.interno.gov.it/documenti/opendata/regionali/regionali-20251123.zip",
+            "2025-11-23",
             True,
         ),
     ],
@@ -237,31 +274,128 @@ def smart_decode(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def extract_scrutini_from_zip(raw: bytes, election_date: str) -> list[list[str]]:
-    """Estrae il file scrutini da uno ZIP Eligendo.
-    Cerca il file che NON si chiama 'Preferenze*' o 'CandidatiLista*'."""
+def _to_int(value) -> int | None:
+    if value is None or value == "":
+        return None
+    try:
+        return int(float(str(value).replace(",", ".")))
+    except (TypeError, ValueError):
+        return None
+
+
+def _parse_entries(raw: bytes, is_zip: bool, url: str) -> list[tuple[str, list[list[str]]]]:
+    """Entry tabellari dello ZIP (o il file singolo), con nome e righe."""
+    if not is_zip:
+        return [(os.path.basename(url), parse_csv(smart_decode(raw)))]
+    entries: list[tuple[str, list[list[str]]]] = []
     with zipfile.ZipFile(io.BytesIO(raw)) as zf:
-        # Trova il file scrutini (non preferenze)
-        scrutini_name = None
         for name in zf.namelist():
             base = os.path.basename(name)
-            if base.startswith("~") or base.startswith("."):
+            if not base or base.startswith("~") or base.startswith("."):
                 continue
-            if "preferenze" not in base.lower() and "candidatilista" not in base.lower():
-                scrutini_name = name
-                break
-        if scrutini_name is None:
-            # fallback: prendi il primo file non-directory
-            for name in zf.namelist():
-                if not name.endswith("/"):
-                    scrutini_name = name
-                    break
-        if scrutini_name is None:
-            raise ValueError(f"Nessun file trovato nello ZIP per {election_date}")
+            if not base.lower().endswith((".csv", ".txt")):
+                continue
+            rows = parse_csv(smart_decode(zf.read(name)))
+            if rows:
+                entries.append((base, rows))
+    return entries
 
-        content = zf.read(scrutini_name)
-        decoded = smart_decode(content)
-    return parse_csv(decoded)
+
+def _records_from_rows(rows: list[list[str]], election_date: str) -> list[dict]:
+    header = rows[0]
+    col_names, col_indices = normalize_columns(header)
+    records = []
+    for row in rows[1:]:
+        if not row or not any(cell.strip() for cell in row):
+            continue
+        rec = {"data_elezione": election_date}
+        for name, idx in zip(col_names, col_indices):
+            if idx < len(row):
+                val = row[idx].strip().strip('"')
+                if name in (
+                    "elettori",
+                    "votanti",
+                    "schede_bianche",
+                    "voti_lista",
+                    "voti_candidato",
+                ):
+                    val = normalize_number(val)
+                rec[name] = val
+        if "cognome" in rec and "nome" in rec:
+            rec["candidato"] = f"{rec.pop('cognome', '')} {rec.pop('nome', '')}".strip()
+        records.append(rec)
+    return records
+
+
+def _aggregate_to_comune(records: list[dict]) -> list[dict]:
+    """Se il file e' per sezione, somma i voti per comune e deduplica l'affluenza.
+
+    L'affluenza e' ripetuta su ogni riga candidato della sezione: va presa una
+    volta per sezione e poi sommata sui comuni.
+    """
+    if not any(rec.get("sezione") for rec in records):
+        return records
+
+    turnout: dict[tuple[str, str, str, str], dict[str, int | None]] = {}
+    for rec in records:
+        key = (
+            rec.get("regione", ""),
+            rec.get("provincia", ""),
+            rec.get("comune", ""),
+            rec.get("sezione", ""),
+        )
+        if key in turnout:
+            continue
+        values = {field: _to_int(rec.get(field)) for field in ("elettori", "votanti", "schede_bianche")}
+        if values["elettori"] is not None:
+            turnout[key] = values
+
+    per_comune: dict[tuple[str, str, str], dict[str, int]] = {}
+    for (regione, provincia, comune, _sezione), values in turnout.items():
+        acc = per_comune.setdefault(
+            (regione, provincia, comune), {"elettori": 0, "votanti": 0, "schede_bianche": 0}
+        )
+        for field, value in values.items():
+            if value:
+                acc[field] += value
+
+    groups: dict[tuple, dict] = {}
+    for rec in records:
+        key = (
+            rec.get("regione", ""),
+            rec.get("circoscrizione", ""),
+            rec.get("provincia", ""),
+            rec.get("comune", ""),
+            rec.get("lista", ""),
+            rec.get("candidato", ""),
+        )
+        group = groups.get(key)
+        if group is None:
+            group = {
+                field: rec.get(field, "")
+                for field in ("data_elezione", "regione", "circoscrizione", "provincia", "comune", "lista", "candidato")
+            }
+            group["voti_lista"] = 0
+            group["voti_candidato"] = 0
+            groups[key] = group
+        for field in ("voti_lista", "voti_candidato"):
+            value = _to_int(rec.get(field))
+            if value is not None:
+                group[field] += value
+
+    out: list[dict] = []
+    for group in groups.values():
+        turnout_comune = per_comune.get(
+            (group["regione"], group["provincia"], group["comune"])
+        )
+        if turnout_comune:
+            for field, value in turnout_comune.items():
+                if value:
+                    group[field] = str(value)
+        group["voti_lista"] = str(group["voti_lista"]) if group["voti_lista"] else ""
+        group["voti_candidato"] = str(group["voti_candidato"]) if group["voti_candidato"] else ""
+        out.append(group)
+    return out
 
 
 def parse_csv(content: str) -> list[list[str]]:
@@ -293,8 +427,9 @@ COL_MAP: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^CIRC(OSCR(IZIONE)?)?$", re.I), "circoscrizione"),
     (re.compile(r"^PROV(INCIA)?$", re.I), "provincia"),
     (re.compile(r"^COMUNE$", re.I), "comune"),
-    (re.compile(r"^(ELETTORI(TOT)?)$", re.I), "elettori"),
-    (re.compile(r"^(VOTANTI(TOT)?)$", re.I), "votanti"),
+    (re.compile(r"^(ELETTORI(TOT)?|ELETTORI_TOTALI|NUMELETTORI)$", re.I), "elettori"),
+    (re.compile(r"^(VOTANTI(TOT)?|VOTANTI_TOTALI|NUMVOTANTI)$", re.I), "votanti"),
+    (re.compile(r"^SEZIONE$", re.I), "sezione"),
     (re.compile(r"^(SCHEDE_BIANCHE|SKBIANCHE)$", re.I), "schede_bianche"),
     (re.compile(r"^(COGNOME|COGNOME_CANDIDATO)$", re.I), "cognome"),
     (re.compile(r"^(NOME|NOME_CANDIDATO)$", re.I), "nome"),
@@ -323,43 +458,68 @@ def normalize_columns(header: list[str]) -> tuple[list[str], list[int]]:
 
 
 def process_url(url: str, election_date: str, is_zip: bool) -> list[dict]:
-    """Scarica e normalizza un file da Eligendo. Restituisce lista di dict."""
-    raw = download(url)
-    if is_zip:
-        raw_rows = extract_scrutini_from_zip(raw, election_date)
-    else:
-        raw_rows = parse_csv(smart_decode(raw))
+    """Scarica e normalizza una tornata Eligendo. Restituisce lista di dict.
 
-    if not raw_rows:
+    Gli ZIP dal 2024 possono contenere piu' file: si usano le entry con i voti
+    (aggregando a comune quelle per sezione, escludendo le preferenze) e si
+    recupera l'affluenza da un'eventuale entry scrutini separata.
+    """
+    raw = download(url)
+    votes: list[dict] = []
+    turnout: list[dict] = []
+    votes_entries: list[tuple[str, list[dict]]] = []
+    turnout_entries: list[tuple[str, list[dict]]] = []
+
+    for name, rows in _parse_entries(raw, is_zip, url):
+        if "preferenz" in name.lower():
+            continue
+        records = _records_from_rows(rows, election_date)
+        if not records:
+            continue
+        if any(rec.get("voti_lista") or rec.get("voti_candidato") for rec in records):
+            votes_entries.append((name, records))
+        elif any(rec.get("elettori") for rec in records):
+            turnout_entries.append((name, records))
+
+    # Un solo ruolo per tornata: se c'e' uno scrutini con voti si usa quello
+    # (esclude i file candidati, che ripetono gli stessi voti); a parita',
+    # preferisce la granularita' comunale a quella per sezione.
+    scrutini = [(name, recs) for name, recs in votes_entries if "scrutini" in name.lower()]
+    pool = scrutini or votes_entries
+    if scrutini:
+        comune_level = [
+            (name, recs)
+            for name, recs in scrutini
+            if not any(rec.get("sezione") for rec in recs)
+        ]
+        if comune_level:
+            pool = comune_level
+
+    for _name, records in pool:
+        votes.extend(_aggregate_to_comune(records))
+    for _name, records in turnout_entries:
+        turnout.extend(records)
+
+    if not votes:
         return []
 
-    header = raw_rows[0]
-    col_names, col_indices = normalize_columns(header)
+    if turnout and any(not rec.get("elettori") for rec in votes):
+        lookup = {
+            (rec.get("regione", ""), rec.get("provincia", ""), rec.get("comune", "")): rec
+            for rec in turnout
+        }
+        for rec in votes:
+            if rec.get("elettori"):
+                continue
+            match = lookup.get(
+                (rec.get("regione", ""), rec.get("provincia", ""), rec.get("comune", ""))
+            )
+            if match:
+                for field in ("elettori", "votanti", "schede_bianche"):
+                    if match.get(field):
+                        rec[field] = match[field]
 
-    records = []
-    for row in raw_rows[1:]:
-        if not row or not any(cell.strip() for cell in row):
-            continue
-        rec = {"data_elezione": election_date}
-        for name, idx in zip(col_names, col_indices):
-            if idx < len(row):
-                val = row[idx].strip().strip('"')
-                # Normalizza campi numerici
-                if name in (
-                    "elettori",
-                    "votanti",
-                    "schede_bianche",
-                    "voti_lista",
-                    "voti_candidato",
-                ):
-                    val = normalize_number(val)
-                rec[name] = val
-        # Unisci cognome + nome in 'candidato'
-        if "cognome" in rec and "nome" in rec:
-            rec["candidato"] = f"{rec.pop('cognome', '')} {rec.pop('nome', '')}".strip()
-        records.append(rec)
-
-    return records
+    return votes
 
 
 def ensure_canonical(records: list[dict]) -> None:
