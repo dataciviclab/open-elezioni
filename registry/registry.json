@@ -1,19 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "repo": "open-elezioni",
   "source_repo": "dataciviclab/open-elezioni",
-  "updated_at": "2026-11-06",
+  "updated_at": "2026-11-25",
+  "gcs": {
+    "clean": "year",
+    "prefix": "open-elezioni/"
+  },
   "datasets": [
     {
       "slug": "dait_amministratori_locali",
       "name": "Dait Amministratori Locali",
-      "description": "",
-      "source": "",
       "source_id": "dait",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "politica",
         "dait",
@@ -21,194 +19,168 @@
         "locali"
       ],
       "category": "politica",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 127805
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "livello_ente",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "codice_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "codice_comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_dait_completo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "denominazione_ente",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sigla_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "popolazione_censita",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "cognome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "nome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_nascita",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "luogo_nascita",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "descrizione_carica",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "incarico",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_entrata_in_carica",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_elezione_max_carica",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "lista_appartenenza",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "titolo_studio",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "professione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/dait_amministratori_locali/2026/dait_amministratori_locali_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "dait_amministratori_locali__mart_profilo_carica",
         "dait_amministratori_locali__mart_profilo_demografico",
         "dait_amministratori_locali__mart_territorio",
         "dait_amministratori_locali__mart_profilo_livello"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:37.918973+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "dait_amministratori_storico",
       "name": "Dait Amministratori Storico",
-      "description": "",
-      "source": "",
       "source_id": "dait",
-      "period": {
-        "start": 1986,
-        "end": 2025
-      },
       "tags": [
         "politica",
         "dait",
@@ -218,1114 +190,1069 @@
         "serie-storica"
       ],
       "category": "politica",
+      "period": {
+        "start": 1986,
+        "end": 2025
+      },
+      "partitions": {
+        "2025": 6075430
+      },
       "columns": [
         {
           "name": "anno_snapshot",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "descrizione_regione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "descrizione_provincia",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "descrizione_comune",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_dait_completo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sigla_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "istat_codice_comune",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "popolazione_censita",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "maggioritario_proporzionale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "descrizione_tempo_gestione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_ballottaggio",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "consiglieri_spettanti",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "consiglieri_eletti",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "assessori_assegnati",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "cognome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "nome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_nascita",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sede_nascita",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "livello_carica",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "descrizione_carica",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_inizio_carica",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_cessazione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "incarico",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_inizio_incarico",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_fine_incarico",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "funzione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_inizio_funzione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_fine_funzione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "lista_appartenenza",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "titolo_studio",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "professione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/dait_amministratori_storico/2025/dait_amministratori_storico_2025_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "dait_amministratori_storico__mart_genere_anno",
         "dait_amministratori_storico__mart_profilo_anno"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:42.482519+00:00",
+        "year": 2025,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_comunali",
       "name": "Elezioni Comunali",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 1964,
-        "end": 2024
-      },
       "tags": [
         "politica",
         "elezioni"
       ],
       "category": "politica",
+      "period": {
+        "start": 1964,
+        "end": 2026
+      },
+      "partitions": {
+        "1964": 20517,
+        "1970": 19972,
+        "1975": 19227,
+        "1980": 20223,
+        "1985": 21445,
+        "1989": 1250,
+        "1990": 21566,
+        "1991": 563,
+        "1992": 1282,
+        "1993": 5489,
+        "1994": 3068,
+        "1995": 15757,
+        "1996": 1411,
+        "1997": 7317,
+        "1998": 4532,
+        "1999": 13424,
+        "2000": 2776,
+        "2001": 5229,
+        "2002": 5019,
+        "2003": 2932,
+        "2004": 14211,
+        "2005": 2661,
+        "2006": 5384,
+        "2007": 5209,
+        "2008": 2419,
+        "2009": 13467,
+        "2010": 2970,
+        "2011": 6230,
+        "2012": 5507,
+        "2013": 3581,
+        "2014": 13218,
+        "2015": 3599,
+        "2016": 5880,
+        "2017": 4894,
+        "2018": 3464,
+        "2019": 11199,
+        "2020": 3548,
+        "2021": 4886,
+        "2022": 3964,
+        "2023": 3080,
+        "2024": 10343,
+        "2026": 3383
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "turno",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "candidato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_candidato",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "voti_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "seggi_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_bianche",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_comunali/*/elezioni_comunali_*_clean.parquet",
-        "multi_file": true
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_comunali__mart_voti_lista_comune"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:05:30.736123+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_europee",
       "name": "Elezioni Europee",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 1979,
-        "end": 2024
-      },
       "tags": [
         "politica",
         "elezioni",
         "europee"
       ],
       "category": "politica",
+      "period": {
+        "start": 1979,
+        "end": 2024
+      },
+      "partitions": {
+        "1979": 98357,
+        "1984": 82361,
+        "1989": 101657,
+        "1994": 135741,
+        "1999": 172829,
+        "2004": 180760,
+        "2009": 109577,
+        "2014": 90096,
+        "2019": 124515,
+        "2024": 93984
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "circoscrizione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_bianche",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_europee/*/elezioni_europee_*_clean.parquet",
-        "multi_file": true
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_europee__mart_voti_lista_comune"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:06:15.979646+00:00",
+        "year": 2024,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_politiche",
       "name": "Elezioni Politiche",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 1948,
-        "end": 2022
-      },
       "tags": [
         "politica",
         "elezioni",
         "politiche"
       ],
       "category": "politica",
+      "period": {
+        "start": 1948,
+        "end": 2022
+      },
+      "partitions": {
+        "2022": 3784837
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "camera_senato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "circoscrizione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "collegio_plurinominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "collegio_uninominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "elettori_totali",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti_totali",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_biache",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "descr_lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "cognome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "nome",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "luogo_nascita",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "data_nascita",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_candidato",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_politiche/2022/elezioni_politiche_2022_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_politiche__mart_voti_elezioni_politiche",
         "elezioni_politiche__mart_voti_per_lista",
         "elezioni_politiche__mart_candidati",
         "elezioni_politiche__mart_trend"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:06:22.242549+00:00",
+        "year": 2022,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_provinciali",
       "name": "Elezioni Provinciali",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 2004,
-        "end": 2011
-      },
       "tags": [
         "politica",
         "elezioni",
         "provinciali"
       ],
       "category": "politica",
+      "period": {
+        "start": 2004,
+        "end": 2011
+      },
+      "partitions": {
+        "2004": 157009,
+        "2005": 13308,
+        "2006": 13474,
+        "2007": 14391,
+        "2008": 17092,
+        "2009": 138390,
+        "2010": 17991,
+        "2011": 21786
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "collegio",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "turno",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "candidato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_candidato",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "voti_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti_maschi",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_bianche",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_provinciali/*/elezioni_provinciali_*_clean.parquet",
-        "multi_file": true
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_provinciali__mart_voti_lista_collegio"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:10:45.951369+00:00",
+        "year": 2011,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_referendum",
       "name": "Elezioni Referendum",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 1974,
-        "end": 2022
-      },
       "tags": [
         "politica",
         "elezioni",
         "referendum"
       ],
       "category": "politica",
+      "period": {
+        "start": 1974,
+        "end": 2026
+      },
+      "partitions": {
+        "1974": 8059,
+        "1978": 16145,
+        "1981": 40425,
+        "1985": 8090,
+        "1987": 475,
+        "1989": 95,
+        "1990": 285,
+        "1991": 95,
+        "1993": 760,
+        "1995": 1236,
+        "1997": 721,
+        "1999": 103,
+        "2000": 721,
+        "2001": 103,
+        "2003": 206,
+        "2005": 440,
+        "2006": 110,
+        "2009": 24300,
+        "2011": 32368,
+        "2016": 15998,
+        "2020": 7903,
+        "2022": 39515,
+        "2025": 39480,
+        "2026": 7895
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "elettori_uomini",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "elettori",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti_uomini",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "voti_si",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "voti_no",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_nulle",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_bianche",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_contestate",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "num_quesito",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_referendum/*/elezioni_referendum_*_clean.parquet",
-        "multi_file": true
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_referendum__mart_voti_quesito_comune",
         "elezioni_referendum__mart_trend"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:08:40.156576+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "elezioni_regionali",
       "name": "Elezioni Regionali",
-      "description": "",
-      "source": "",
       "source_id": "eligendo",
-      "period": {
-        "start": 1970,
-        "end": 2024
-      },
       "tags": [
         "politica",
         "elezioni"
       ],
       "category": "politica",
+      "period": {
+        "start": 1970,
+        "end": 2025
+      },
+      "partitions": {
+        "1970": 59077,
+        "1975": 53835,
+        "1980": 64051,
+        "1985": 76266,
+        "1990": 91672,
+        "1995": 77628,
+        "2000": 103120,
+        "2001": 7871,
+        "2005": 100670,
+        "2006": 2124,
+        "2008": 4114,
+        "2010": 94234,
+        "2013": 39605,
+        "2014": 34180,
+        "2015": 35999,
+        "2018": 35060,
+        "2019": 24645,
+        "2020": 10299,
+        "2021": 8484,
+        "2023": 24125,
+        "2024": 31055,
+        "2025": 31851
+      },
       "columns": [
         {
           "name": "data_elezione",
           "type": "DATE",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "circoscrizione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "elettori",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "votanti",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "schede_bianche",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "candidato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_candidato",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "lista",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voti_lista",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "match_sut",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/elezioni_regionali/*/elezioni_regionali_*_clean.parquet",
-        "multi_file": true
-      },
-      "stage": "incubating",
       "mart_refs": [
         "elezioni_regionali__mart_voti_lista_comune"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T15:10:00.794645+00:00",
+        "year": 2025,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "sut_codici_comuni",
       "name": "Sut Codici Comuni",
       "description": "Codici ISTAT, elettorali e Belfiore dei comuni italiani (SUT/DAIT).",
-      "source": "",
       "source_id": "dait_sut",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "support",
         "territorio",
@@ -1334,67 +1261,62 @@
         "istat"
       ],
       "category": "support",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 7894
+      },
       "columns": [
         {
           "name": "nr",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "sigla",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/sut_codici_comuni/2026/sut_codici_comuni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "sut_codici_comuni__mart_comuni"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:21.664093+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "sut_collegi_camera_comuni",
       "name": "Sut Collegi Camera Comuni",
       "description": "Mapping comune -> collegio plurinominale/uninominale Camera (SUT/DAIT).",
-      "source": "",
       "source_id": "dait_sut",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "support",
         "territorio",
@@ -1403,72 +1325,66 @@
         "elezioni"
       ],
       "category": "support",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 7906
+      },
       "columns": [
         {
           "name": "circoscrizione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "collegio_plurinominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "collegio_uninominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "sigla_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sigla_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/sut_collegi_camera_comuni/2026/sut_collegi_camera_comuni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "sut_collegi_camera_comuni__mart_collegi_comuni"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:25.925304+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "sut_collegi_senato_comuni",
       "name": "Sut Collegi Senato Comuni",
       "description": "Mapping comune -> collegio plurinominale/uninominale Senato (SUT/DAIT).",
-      "source": "",
       "source_id": "dait_sut",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "support",
         "territorio",
@@ -1477,72 +1393,66 @@
         "elezioni"
       ],
       "category": "support",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 7898
+      },
       "columns": [
         {
           "name": "circoscrizione_regionale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "collegio_plurinominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "collegio_uninominale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "sigla_provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "comune_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sigla_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/sut_collegi_senato_comuni/2026/sut_collegi_senato_comuni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "sut_collegi_senato_comuni__mart_collegi_comuni"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:29.314112+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "sut_comuni_bridge",
       "name": "Sut Comuni Bridge",
       "description": "Bridge comuni: codici ISTAT/Belfiore/elettorale + regione/provincia normalizzate (SUT).",
-      "source": "",
       "source_id": "dait_sut",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "support",
         "territorio",
@@ -1552,88 +1462,83 @@
         "bridge"
       ],
       "category": "support",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 7894
+      },
       "columns": [
         {
           "name": "comune",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_name"
         },
         {
           "name": "sigla",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "codice_istat",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "municipality_code"
         },
         {
           "name": "codice_belfiore",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "cadastral_code"
         },
         {
           "name": "codice_elettorale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "comune_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "provincia_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione_norm",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "ambiguous",
           "type": "BOOLEAN",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-elezioni/sut_comuni_bridge/2026/sut_comuni_bridge_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "sut_comuni_bridge__mart_comuni"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-25T14:58:30.615059+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     }
   ],
   "marts": [
@@ -1641,931 +1546,166 @@
       "slug": "dait_amministratori_locali__mart_profilo_carica",
       "dataset": "dait_amministratori_locali",
       "table": "mart_profilo_carica",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_locali/2026/mart_profilo_carica.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "descrizione_carica"
+      ]
     },
     {
       "slug": "dait_amministratori_locali__mart_profilo_demografico",
       "dataset": "dait_amministratori_locali",
       "table": "mart_profilo_demografico",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_locali/2026/mart_profilo_demografico.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "descrizione_carica",
+        "sesso"
+      ]
     },
     {
       "slug": "dait_amministratori_locali__mart_profilo_livello",
       "dataset": "dait_amministratori_locali",
       "table": "mart_profilo_livello",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_locali/2026/mart_profilo_livello.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "livello_ente",
+        "descrizione_carica"
+      ]
     },
     {
       "slug": "dait_amministratori_locali__mart_territorio",
       "dataset": "dait_amministratori_locali",
       "table": "mart_territorio",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_locali/2026/mart_territorio.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "codice_regione",
+        "descrizione_carica"
+      ]
     },
     {
       "slug": "dait_amministratori_storico__mart_genere_anno",
       "dataset": "dait_amministratori_storico",
       "table": "mart_genere_anno",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_storico/2025/mart_genere_anno.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2025,
+      "primary_key": [
+        "anno_snapshot",
+        "sesso"
+      ]
     },
     {
       "slug": "dait_amministratori_storico__mart_profilo_anno",
       "dataset": "dait_amministratori_storico",
       "table": "mart_profilo_anno",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/dait_amministratori_storico/2025/mart_profilo_anno.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2025,
+      "primary_key": [
+        "anno_snapshot",
+        "descrizione_carica"
+      ]
     },
     {
       "slug": "elezioni_comunali__mart_voti_lista_comune",
       "dataset": "elezioni_comunali",
       "table": "mart_voti_lista_comune",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_comunali/*/mart_voti_lista_comune.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "elezioni_europee__mart_voti_lista_comune",
       "dataset": "elezioni_europee",
       "table": "mart_voti_lista_comune",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_europee/*/mart_voti_lista_comune.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "elezioni_politiche__mart_candidati",
       "dataset": "elezioni_politiche",
       "table": "mart_candidati",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_politiche/2022/mart_candidati.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2022
     },
     {
       "slug": "elezioni_politiche__mart_trend",
       "dataset": "elezioni_politiche",
       "table": "mart_trend",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_politiche/2022/mart_trend.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2022
     },
     {
       "slug": "elezioni_politiche__mart_voti_elezioni_politiche",
       "dataset": "elezioni_politiche",
       "table": "mart_voti_elezioni_politiche",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_politiche/2022/mart_voti_elezioni_politiche.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2022
     },
     {
       "slug": "elezioni_politiche__mart_voti_per_lista",
       "dataset": "elezioni_politiche",
       "table": "mart_voti_per_lista",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_politiche/2022/mart_voti_per_lista.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2022
     },
     {
       "slug": "elezioni_provinciali__mart_voti_lista_collegio",
       "dataset": "elezioni_provinciali",
       "table": "mart_voti_lista_collegio",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_provinciali/*/mart_voti_lista_collegio.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "elezioni_referendum__mart_trend",
       "dataset": "elezioni_referendum",
       "table": "mart_trend",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_referendum/*/mart_trend.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "elezioni_referendum__mart_voti_quesito_comune",
       "dataset": "elezioni_referendum",
       "table": "mart_voti_quesito_comune",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_referendum/*/mart_voti_quesito_comune.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "elezioni_regionali__mart_voti_lista_comune",
       "dataset": "elezioni_regionali",
       "table": "mart_voti_lista_comune",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/elezioni_regionali/*/mart_voti_lista_comune.parquet",
-        "multi_file": true
-      }
+      "layout": "glob"
     },
     {
       "slug": "sut_codici_comuni__mart_comuni",
       "dataset": "sut_codici_comuni",
       "table": "mart_comuni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/sut_codici_comuni/2026/mart_comuni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "codice_istat"
+      ]
     },
     {
       "slug": "sut_collegi_camera_comuni__mart_collegi_comuni",
       "dataset": "sut_collegi_camera_comuni",
       "table": "mart_collegi_comuni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/sut_collegi_camera_comuni/2026/mart_collegi_comuni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "sut_collegi_senato_comuni__mart_collegi_comuni",
       "dataset": "sut_collegi_senato_comuni",
       "table": "mart_collegi_comuni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/sut_collegi_senato_comuni/2026/mart_collegi_comuni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "sut_comuni_bridge__mart_comuni",
       "dataset": "sut_comuni_bridge",
       "table": "mart_comuni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-elezioni/sut_comuni_bridge/2026/mart_comuni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026,
+      "primary_key": [
+        "comune_norm"
+      ]
     }
   ],
-  "signals": [
-    {
-      "id": "dait_amministratori_locali",
-      "source_id": "dait",
-      "status": "ok",
-      "label": "dait_amministratori_locali",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220104Z_f08f1844",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 125955,
-          "clean": 127805,
-          "mart": 194
-        },
-        "output_bytes": {
-          "raw": 31547327,
-          "clean": 3330197,
-          "mart": 7775
-        },
-        "started_at": "2026-11-06T22:01:04.749121+00:00",
-        "finished_at": "2026-11-06T22:01:09.357093+00:00",
-        "duration_seconds": 4.608
-      }
-    },
-    {
-      "id": "dait_amministratori_storico",
-      "source_id": "dait",
-      "status": "ok",
-      "label": "dait_amministratori_storico",
-      "detail": "anno 2025 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220109Z_539bc52f",
-        "year": 2025,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 6075430,
-          "clean": 6075430,
-          "mart": 777
-        },
-        "output_bytes": {
-          "raw": 1669375000,
-          "clean": 94443978,
-          "mart": 8839
-        },
-        "started_at": "2026-11-06T22:01:09.898960+00:00",
-        "finished_at": "2026-11-06T22:05:52.639139+00:00",
-        "duration_seconds": 282.74
-      }
-    },
-    {
-      "id": "elezioni_comunali",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_comunali",
-      "detail": "anni 1964-2024 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220801Z_0ebb2c0f",
-        "year": 2024,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 10343,
-          "clean": 10343,
-          "mart": 10343
-        },
-        "output_bytes": {
-          "raw": 1738573,
-          "clean": 372943,
-          "mart": 310673
-        },
-        "started_at": "2026-11-06T22:08:01.249492+00:00",
-        "finished_at": "2026-11-06T22:08:03.951678+00:00",
-        "duration_seconds": 2.702
-      }
-    },
-    {
-      "id": "elezioni_europee",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_europee",
-      "detail": "anni 1979-2024 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220843Z_cae8979a",
-        "year": 2024,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 93984,
-          "clean": 93984,
-          "mart": 93984
-        },
-        "output_bytes": {
-          "raw": 12648879,
-          "clean": 1032909,
-          "mart": 893860
-        },
-        "started_at": "2026-11-06T22:08:43.276339+00:00",
-        "finished_at": "2026-11-06T22:08:50.276899+00:00",
-        "duration_seconds": 7.001
-      }
-    },
-    {
-      "id": "elezioni_politiche",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_politiche",
-      "detail": "anno 2022 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220850Z_c82694cf",
-        "year": 2022,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 3784837,
-          "clean": 3784837,
-          "mart": 3650236
-        },
-        "output_bytes": {
-          "raw": 397449066,
-          "clean": 49671207,
-          "mart": 32885753
-        },
-        "started_at": "2026-11-06T22:08:50.712294+00:00",
-        "finished_at": "2026-11-06T22:10:32.107580+00:00",
-        "duration_seconds": 101.395
-      }
-    },
-    {
-      "id": "elezioni_referendum",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_referendum",
-      "detail": "anni 1974-2022 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T221104Z_764ef63f",
-        "year": 2022,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 39515,
-          "clean": 39515,
-          "mart": 39955
-        },
-        "output_bytes": {
-          "raw": 3140054,
-          "clean": 846587,
-          "mart": 651079
-        },
-        "started_at": "2026-11-06T22:11:04.997065+00:00",
-        "finished_at": "2026-11-06T22:11:07.901807+00:00",
-        "duration_seconds": 2.905
-      }
-    },
-    {
-      "id": "elezioni_regionali",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_regionali",
-      "detail": "anni 1970-2024 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T221205Z_a7643e0f",
-        "year": 2024,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 15266,
-          "clean": 15266,
-          "mart": 15266
-        },
-        "output_bytes": {
-          "raw": 1557369,
-          "clean": 132409,
-          "mart": 142158
-        },
-        "started_at": "2026-11-06T22:12:05.957673+00:00",
-        "finished_at": "2026-11-06T22:12:07.643427+00:00",
-        "duration_seconds": 1.686
-      }
-    },
-    {
-      "id": "elezioni_provinciali",
-      "source_id": "eligendo",
-      "status": "ok",
-      "label": "elezioni_provinciali",
-      "detail": "anni 2004-2011 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T221230Z_caac18bb",
-        "year": 2011,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 21786,
-          "clean": 21786,
-          "mart": 16342
-        },
-        "output_bytes": {
-          "raw": 3513324,
-          "clean": 201605,
-          "mart": 197012
-        },
-        "started_at": "2026-11-06T22:12:30.749192+00:00",
-        "finished_at": "2026-11-06T22:12:33.027322+00:00",
-        "duration_seconds": 2.278
-      }
-    },
-    {
-      "id": "sut_codici_comuni",
-      "source_id": "dait_sut",
-      "status": "ok",
-      "label": "sut_codici_comuni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220046Z_aaa2d4d5",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 7894,
-          "clean": 7894,
-          "mart": 7894
-        },
-        "output_bytes": {
-          "raw": 363782,
-          "clean": 133260,
-          "mart": 118328
-        },
-        "started_at": "2026-11-06T22:00:46.082383+00:00",
-        "finished_at": "2026-11-06T22:00:47.158349+00:00",
-        "duration_seconds": 1.076
-      }
-    },
-    {
-      "id": "sut_collegi_camera_comuni",
-      "source_id": "dait_sut",
-      "status": "ok",
-      "label": "sut_collegi_camera_comuni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220050Z_6f5c68d4",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 7906,
-          "clean": 7906,
-          "mart": 7906
-        },
-        "output_bytes": {
-          "raw": 568410,
-          "clean": 108687,
-          "mart": 108693
-        },
-        "started_at": "2026-11-06T22:00:50.013716+00:00",
-        "finished_at": "2026-11-06T22:00:51.037297+00:00",
-        "duration_seconds": 1.024
-      }
-    },
-    {
-      "id": "sut_collegi_senato_comuni",
-      "source_id": "dait_sut",
-      "status": "ok",
-      "label": "sut_collegi_senato_comuni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220054Z_b21cb1f0",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 7898,
-          "clean": 7898,
-          "mart": 7898
-        },
-        "output_bytes": {
-          "raw": 532029,
-          "clean": 103269,
-          "mart": 103275
-        },
-        "started_at": "2026-11-06T22:00:54.038923+00:00",
-        "finished_at": "2026-11-06T22:00:55.000389+00:00",
-        "duration_seconds": 0.961
-      }
-    },
-    {
-      "id": "sut_comuni_bridge",
-      "source_id": "dait_sut",
-      "status": "ok",
-      "label": "sut_comuni_bridge",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261106T220055Z_33619d4a",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 7894,
-          "clean": 7894,
-          "mart": 7889
-        },
-        "output_bytes": {
-          "raw": 451016,
-          "clean": 207866,
-          "mart": 158134
-        },
-        "started_at": "2026-11-06T22:00:55.427149+00:00",
-        "finished_at": "2026-11-06T22:01:00.040088+00:00",
-        "duration_seconds": 4.613
-      }
-    }
-  ],
-  "codelists": [],
-  "entities": {
-    "entities": {
-      "Comune": {
-        "entity": "Comune",
-        "label": "Comune (ISTAT)",
-        "datasets": [
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "codice_comune",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "dait_amministratori_storico",
-            "name": "Dait Amministratori Storico",
-            "column": "codice_comune",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_comunali",
-            "name": "Elezioni Comunali",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_comunali",
-            "name": "Elezioni Comunali",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_comunali",
-            "name": "Elezioni Comunali",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "elezioni_europee",
-            "name": "Elezioni Europee",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_europee",
-            "name": "Elezioni Europee",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_europee",
-            "name": "Elezioni Europee",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "elezioni_politiche",
-            "name": "Elezioni Politiche",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_politiche",
-            "name": "Elezioni Politiche",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_politiche",
-            "name": "Elezioni Politiche",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "elezioni_provinciali",
-            "name": "Elezioni Provinciali",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_provinciali",
-            "name": "Elezioni Provinciali",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_provinciali",
-            "name": "Elezioni Provinciali",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "elezioni_referendum",
-            "name": "Elezioni Referendum",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_referendum",
-            "name": "Elezioni Referendum",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_referendum",
-            "name": "Elezioni Referendum",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "elezioni_regionali",
-            "name": "Elezioni Regionali",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "elezioni_regionali",
-            "name": "Elezioni Regionali",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "elezioni_regionali",
-            "name": "Elezioni Regionali",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "sut_codici_comuni",
-            "name": "Sut Codici Comuni",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "sut_codici_comuni",
-            "name": "Sut Codici Comuni",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "sut_codici_comuni",
-            "name": "Sut Codici Comuni",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          },
-          {
-            "slug": "sut_collegi_camera_comuni",
-            "name": "Sut Collegi Camera Comuni",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "sut_collegi_senato_comuni",
-            "name": "Sut Collegi Senato Comuni",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "sut_comuni_bridge",
-            "name": "Sut Comuni Bridge",
-            "column": "comune",
-            "semantic_type": "municipality_name"
-          },
-          {
-            "slug": "sut_comuni_bridge",
-            "name": "Sut Comuni Bridge",
-            "column": "codice_istat",
-            "semantic_type": "municipality_code"
-          },
-          {
-            "slug": "sut_comuni_bridge",
-            "name": "Sut Comuni Bridge",
-            "column": "codice_belfiore",
-            "semantic_type": "cadastral_code"
-          }
-        ],
-        "types": {
-          "municipality_code": 11,
-          "cadastral_code": 9,
-          "municipality_name": 10
-        }
-      },
-      "Provincia": {
-        "entity": "Provincia",
-        "label": "Provincia",
-        "datasets": [
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "codice_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "sigla_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "dait_amministratori_storico",
-            "name": "Dait Amministratori Storico",
-            "column": "codice_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "dait_amministratori_storico",
-            "name": "Dait Amministratori Storico",
-            "column": "sigla_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_comunali",
-            "name": "Elezioni Comunali",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_europee",
-            "name": "Elezioni Europee",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_politiche",
-            "name": "Elezioni Politiche",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_provinciali",
-            "name": "Elezioni Provinciali",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_referendum",
-            "name": "Elezioni Referendum",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "elezioni_regionali",
-            "name": "Elezioni Regionali",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "sut_collegi_camera_comuni",
-            "name": "Sut Collegi Camera Comuni",
-            "column": "sigla_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "sut_collegi_senato_comuni",
-            "name": "Sut Collegi Senato Comuni",
-            "column": "sigla_provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "sut_comuni_bridge",
-            "name": "Sut Comuni Bridge",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          }
-        ],
-        "types": {
-          "province_code": 13
-        }
-      },
-      "Regione": {
-        "entity": "Regione",
-        "label": "Regione",
-        "datasets": [
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "codice_regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "dait_amministratori_storico",
-            "name": "Dait Amministratori Storico",
-            "column": "codice_regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "elezioni_comunali",
-            "name": "Elezioni Comunali",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "elezioni_europee",
-            "name": "Elezioni Europee",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "elezioni_provinciali",
-            "name": "Elezioni Provinciali",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "elezioni_referendum",
-            "name": "Elezioni Referendum",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "elezioni_regionali",
-            "name": "Elezioni Regionali",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "sut_comuni_bridge",
-            "name": "Sut Comuni Bridge",
-            "column": "regione",
-            "semantic_type": "region_code"
-          }
-        ],
-        "types": {
-          "region_code": 8
-        }
-      },
-      "Tempo": {
-        "entity": "Tempo",
-        "label": "Tempo / data",
-        "datasets": [
-          {
-            "slug": "dait_amministratori_locali",
-            "name": "Dait Amministratori Locali",
-            "column": "anno",
-            "semantic_type": "year"
-          }
-        ],
-        "types": {
-          "year": 1
-        }
-      }
-    },
-    "bridges": []
-  }
+  "checks": [],
+  "codelists": []
 }
